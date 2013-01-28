@@ -10,10 +10,6 @@
 @script("Public/registracija.js")
 @script("validacija/languages/jquery.validationEngine-en.js")
 @script("validacija/jquery.validationEngine.js")
-
-
-
-
  @helper script(string scriptname){
      
      <script src= "@Url.Content("/Script/" + scriptname)" type="text/javascript"></script>
@@ -23,7 +19,6 @@
      <link href="@Url.Content("/Content/" + cssname)" rel="stylesheet" type="text/css" />
     
  }
-
 <script type="text/javascript">
     $("document").ready(
         function () {
@@ -35,11 +30,6 @@
 
                 $("#LoginForma").dialog('close');
             });
-
-
-
-
-
 
             $("#btnPrijavise").click(
             function () {

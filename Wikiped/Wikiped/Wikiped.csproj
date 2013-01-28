@@ -107,7 +107,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Controllers\ClanciController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
     <Compile Include="Controllers\PitanjaController.cs" />
     <Compile Include="Controllers\PocetnaController.cs" />
@@ -120,7 +119,6 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\ClanciServis.cs" />
     <Compile Include="Models\CustomAuthorizeAttribute.cs" />
     <Compile Include="Models\ExtensionMethod.cs" />
     <Compile Include="Models\KorisniciServis.cs" />
@@ -233,10 +231,7 @@
     <Content Include="Views\Pocetna\NePrijavljen.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Clanci\Index.cshtml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Views\Clanci\Edit.cshtml" />
+    <Content Include="Views\Pitanja\Details.cshtml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

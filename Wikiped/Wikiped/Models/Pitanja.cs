@@ -17,6 +17,10 @@ namespace Wikiped.Models
         {
             return context.Pitanja.ToList();
         }
+        public DBBL.DAL.Pitanja GetPitanjeByID(int id)
+        {
+            return context.Pitanja.Where(x => x.PitanjeID == id).FirstOrDefault();
+        }
 
         public void Dispose()
         {

@@ -339,3 +339,13 @@
    font-weight:bold;
    font-weight:bolder;
 }
+.wrapperleft
+{
+    
+}
+.sidebar-right
+{
+    overflow: hidden;
+    margin-bottom: 60px;
+    width: 210px;
+}

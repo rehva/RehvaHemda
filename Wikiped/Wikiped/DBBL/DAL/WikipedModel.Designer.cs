@@ -8,19 +8,18 @@
 //------------------------------------------------------------------------------
 
 using System;
-using System.ComponentModel;
-using System.Data.EntityClient;
 using System.Data.Objects;
 using System.Data.Objects.DataClasses;
-using System.Linq;
-using System.Runtime.Serialization;
+using System.Data.EntityClient;
+using System.ComponentModel;
 using System.Xml.Serialization;
+using System.Runtime.Serialization;
 
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_Algoritmi_Korisnici", "Korisnici", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Korisnici), "Algoritmi", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Algoritmi), true)]
-[assembly: EdmRelationshipAttribute("WikipedModel", "FK_Clanci_TagVrste", "ClanakVrste", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.ClanakVrste), "Clanci", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Clanci), true)]
+[assembly: EdmRelationshipAttribute("WikipedModel", "FK_Clanci_TagVrste", "TagVrste", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.TagVrste), "Clanci", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Clanci), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_Komentari_Clanci", "Clanci", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Clanci), "Komentari", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Komentari), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_OcjenaKorisnici_Clanci", "Clanci", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Clanci), "OcjenaKorisnici", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.OcjenaKorisnici), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_Sadrzaji_Clanci", "Clanci", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Clanci), "Sadrzaji", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Sadrzaji), true)]
@@ -36,7 +35,6 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_OdgovorNaOdgovor_Odgovori", "Odgovori", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Odgovori), "OdgovorNaOdgovor", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.OdgovorNaOdgovor), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_TagoviPitanja_Pitanja", "Pitanja", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Wikiped.DBBL.DAL.Pitanja), "TagoviPitanja", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.TagoviPitanja), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_TagClanci_Tagovi", "Tagovi", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Tagovi), "TagClanci", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.TagClanci), true)]
-[assembly: EdmRelationshipAttribute("WikipedModel", "FK_TagClanci_Tags", "Tags", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Tags), "TagClanci", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.TagClanci), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_TagoviPitanja_Tags", "Tags", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Wikiped.DBBL.DAL.Tags), "TagoviPitanja", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.TagoviPitanja), true)]
 
 #endregion
@@ -104,22 +102,6 @@ namespace Wikiped.DBBL.DAL
             }
         }
         private ObjectSet<Algoritmi> _Algoritmi;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<ClanakVrste> ClanakVrste
-        {
-            get
-            {
-                if ((_ClanakVrste == null))
-                {
-                    _ClanakVrste = base.CreateObjectSet<ClanakVrste>("ClanakVrste");
-                }
-                return _ClanakVrste;
-            }
-        }
-        private ObjectSet<ClanakVrste> _ClanakVrste;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -392,9 +374,24 @@ namespace Wikiped.DBBL.DAL
             }
         }
         private ObjectSet<Tags> _Tags;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<TagVrste> TagVrste
+        {
+            get
+            {
+                if ((_TagVrste == null))
+                {
+                    _TagVrste = base.CreateObjectSet<TagVrste>("TagVrste");
+                }
+                return _TagVrste;
+            }
+        }
+        private ObjectSet<TagVrste> _TagVrste;
 
         #endregion
-
         #region AddTo Methods
     
         /// <summary>
@@ -403,14 +400,6 @@ namespace Wikiped.DBBL.DAL
         public void AddToAlgoritmi(Algoritmi algoritmi)
         {
             base.AddObject("Algoritmi", algoritmi);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the ClanakVrste EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToClanakVrste(ClanakVrste clanakVrste)
-        {
-            base.AddObject("ClanakVrste", clanakVrste);
         }
     
         /// <summary>
@@ -548,13 +537,21 @@ namespace Wikiped.DBBL.DAL
         {
             base.AddObject("Tags", tags);
         }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the TagVrste EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToTagVrste(TagVrste tagVrste)
+        {
+            base.AddObject("TagVrste", tagVrste);
+        }
 
         #endregion
-
     }
+    
 
     #endregion
-
+    
     #region Entities
     
     /// <summary>
@@ -579,7 +576,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -730,7 +726,6 @@ namespace Wikiped.DBBL.DAL
         partial void OnAktivanChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -773,138 +768,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="WikipedModel", Name="ClanakVrste")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class ClanakVrste : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new ClanakVrste object.
-        /// </summary>
-        /// <param name="clanakVrstaID">Initial value of the ClanakVrstaID property.</param>
-        public static ClanakVrste CreateClanakVrste(global::System.Int32 clanakVrstaID)
-        {
-            ClanakVrste clanakVrste = new ClanakVrste();
-            clanakVrste.ClanakVrstaID = clanakVrstaID;
-            return clanakVrste;
-        }
-
-        #endregion
-
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 ClanakVrstaID
-        {
-            get
-            {
-                return _ClanakVrstaID;
-            }
-            set
-            {
-                if (_ClanakVrstaID != value)
-                {
-                    OnClanakVrstaIDChanging(value);
-                    ReportPropertyChanging("ClanakVrstaID");
-                    _ClanakVrstaID = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("ClanakVrstaID");
-                    OnClanakVrstaIDChanged();
-                }
-            }
-        }
-        private global::System.Int32 _ClanakVrstaID;
-        partial void OnClanakVrstaIDChanging(global::System.Int32 value);
-        partial void OnClanakVrstaIDChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.Int32> Vrsta
-        {
-            get
-            {
-                return _Vrsta;
-            }
-            set
-            {
-                OnVrstaChanging(value);
-                ReportPropertyChanging("Vrsta");
-                _Vrsta = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Vrsta");
-                OnVrstaChanged();
-            }
-        }
-        private Nullable<global::System.Int32> _Vrsta;
-        partial void OnVrstaChanging(Nullable<global::System.Int32> value);
-        partial void OnVrstaChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String Opis
-        {
-            get
-            {
-                return _Opis;
-            }
-            set
-            {
-                OnOpisChanging(value);
-                ReportPropertyChanging("Opis");
-                _Opis = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Opis");
-                OnOpisChanged();
-            }
-        }
-        private global::System.String _Opis;
-        partial void OnOpisChanging(global::System.String value);
-        partial void OnOpisChanged();
-
-        #endregion
-
-    
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_Clanci_TagVrste", "Clanci")]
-        public EntityCollection<Clanci> Clanci
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Clanci>("WikipedModel.FK_Clanci_TagVrste", "Clanci");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Clanci>("WikipedModel.FK_Clanci_TagVrste", "Clanci", value);
-                }
-            }
-        }
-
-        #endregion
-
     }
     
     /// <summary>
@@ -929,7 +792,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -964,24 +826,24 @@ namespace Wikiped.DBBL.DAL
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> ClanakVrstaID
+        public Nullable<global::System.Int32> TagVrstaID
         {
             get
             {
-                return _ClanakVrstaID;
+                return _TagVrstaID;
             }
             set
             {
-                OnClanakVrstaIDChanging(value);
-                ReportPropertyChanging("ClanakVrstaID");
-                _ClanakVrstaID = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("ClanakVrstaID");
-                OnClanakVrstaIDChanged();
+                OnTagVrstaIDChanging(value);
+                ReportPropertyChanging("TagVrstaID");
+                _TagVrstaID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TagVrstaID");
+                OnTagVrstaIDChanged();
             }
         }
-        private Nullable<global::System.Int32> _ClanakVrstaID;
-        partial void OnClanakVrstaIDChanging(Nullable<global::System.Int32> value);
-        partial void OnClanakVrstaIDChanged();
+        private Nullable<global::System.Int32> _TagVrstaID;
+        partial void OnTagVrstaIDChanging(Nullable<global::System.Int32> value);
+        partial void OnTagVrstaIDChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1080,7 +942,6 @@ namespace Wikiped.DBBL.DAL
         partial void OnGuidChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -1090,16 +951,16 @@ namespace Wikiped.DBBL.DAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_Clanci_TagVrste", "ClanakVrste")]
-        public ClanakVrste ClanakVrste
+        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_Clanci_TagVrste", "TagVrste")]
+        public TagVrste TagVrste
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ClanakVrste>("WikipedModel.FK_Clanci_TagVrste", "ClanakVrste").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TagVrste>("WikipedModel.FK_Clanci_TagVrste", "TagVrste").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ClanakVrste>("WikipedModel.FK_Clanci_TagVrste", "ClanakVrste").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TagVrste>("WikipedModel.FK_Clanci_TagVrste", "TagVrste").Value = value;
             }
         }
         /// <summary>
@@ -1107,17 +968,17 @@ namespace Wikiped.DBBL.DAL
         /// </summary>
         [BrowsableAttribute(false)]
         [DataMemberAttribute()]
-        public EntityReference<ClanakVrste> ClanakVrsteReference
+        public EntityReference<TagVrste> TagVrsteReference
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<ClanakVrste>("WikipedModel.FK_Clanci_TagVrste", "ClanakVrste");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<TagVrste>("WikipedModel.FK_Clanci_TagVrste", "TagVrste");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<ClanakVrste>("WikipedModel.FK_Clanci_TagVrste", "ClanakVrste", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<TagVrste>("WikipedModel.FK_Clanci_TagVrste", "TagVrste", value);
                 }
             }
         }
@@ -1211,7 +1072,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -1236,7 +1096,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -1291,7 +1150,6 @@ namespace Wikiped.DBBL.DAL
         partial void OnNazivChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -1318,7 +1176,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -1343,7 +1200,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -1422,7 +1278,6 @@ namespace Wikiped.DBBL.DAL
         partial void OnNazivChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -1449,7 +1304,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -1474,7 +1328,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -1601,7 +1454,6 @@ namespace Wikiped.DBBL.DAL
         partial void OnDatumChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -1682,7 +1534,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -1707,7 +1558,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -1954,7 +1804,6 @@ namespace Wikiped.DBBL.DAL
         partial void OnKorisnikVrstaIDChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -2123,7 +1972,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -2148,7 +1996,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -2227,7 +2074,6 @@ namespace Wikiped.DBBL.DAL
         partial void OnOpisChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -2254,7 +2100,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -2279,7 +2124,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -2382,7 +2226,6 @@ namespace Wikiped.DBBL.DAL
         partial void OnOcjenaIDChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -2501,7 +2344,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -2526,7 +2368,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -2605,7 +2446,6 @@ namespace Wikiped.DBBL.DAL
         partial void OnOpisChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -2632,7 +2472,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -2657,7 +2496,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -2784,7 +2622,6 @@ namespace Wikiped.DBBL.DAL
         partial void OnDatumChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -2849,7 +2686,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -2874,7 +2710,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -3001,7 +2836,6 @@ namespace Wikiped.DBBL.DAL
         partial void OnDatumChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -3044,7 +2878,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -3069,7 +2902,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -3268,7 +3100,6 @@ namespace Wikiped.DBBL.DAL
         partial void OnTemaIDChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -3355,7 +3186,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -3380,7 +3210,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -3531,7 +3360,6 @@ namespace Wikiped.DBBL.DAL
         partial void OnClanakIDChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -3612,7 +3440,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -3641,7 +3468,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -3768,7 +3594,6 @@ namespace Wikiped.DBBL.DAL
         partial void OndefinitionChanged();
 
         #endregion
-
     
     }
     
@@ -3794,7 +3619,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -3853,27 +3677,26 @@ namespace Wikiped.DBBL.DAL
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public Nullable<global::System.Int32> TagsID
+        public Nullable<global::System.Int32> TagID
         {
             get
             {
-                return _TagsID;
+                return _TagID;
             }
             set
             {
-                OnTagsIDChanging(value);
-                ReportPropertyChanging("TagsID");
-                _TagsID = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("TagsID");
-                OnTagsIDChanged();
+                OnTagIDChanging(value);
+                ReportPropertyChanging("TagID");
+                _TagID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TagID");
+                OnTagIDChanged();
             }
         }
-        private Nullable<global::System.Int32> _TagsID;
-        partial void OnTagsIDChanging(Nullable<global::System.Int32> value);
-        partial void OnTagsIDChanged();
+        private Nullable<global::System.Int32> _TagID;
+        partial void OnTagIDChanging(Nullable<global::System.Int32> value);
+        partial void OnTagIDChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -3952,47 +3775,8 @@ namespace Wikiped.DBBL.DAL
                 }
             }
         }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_TagClanci_Tags", "Tags")]
-        public Tags Tags
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Tags>("WikipedModel.FK_TagClanci_Tags", "Tags").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Tags>("WikipedModel.FK_TagClanci_Tags", "Tags").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Tags> TagsReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Tags>("WikipedModel.FK_TagClanci_Tags", "Tags");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Tags>("WikipedModel.FK_TagClanci_Tags", "Tags", value);
-                }
-            }
-        }
 
         #endregion
-
     }
     
     /// <summary>
@@ -4017,7 +3801,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -4072,7 +3855,6 @@ namespace Wikiped.DBBL.DAL
         partial void OnOpisChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -4099,7 +3881,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -4128,7 +3909,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -4207,7 +3987,6 @@ namespace Wikiped.DBBL.DAL
         partial void OnPitanjeIDChanged();
 
         #endregion
-
     
         #region Navigation Properties
     
@@ -4288,7 +4067,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
     }
     
     /// <summary>
@@ -4313,7 +4091,6 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
-
         #region Primitive Properties
     
         /// <summary>
@@ -4392,31 +4169,8 @@ namespace Wikiped.DBBL.DAL
         partial void OnOpisChanged();
 
         #endregion
-
     
         #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_TagClanci_Tags", "TagClanci")]
-        public EntityCollection<TagClanci> TagClanci
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TagClanci>("WikipedModel.FK_TagClanci_Tags", "TagClanci");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TagClanci>("WikipedModel.FK_TagClanci_Tags", "TagClanci", value);
-                }
-            }
-        }
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -4441,10 +4195,136 @@ namespace Wikiped.DBBL.DAL
         }
 
         #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="WikipedModel", Name="TagVrste")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class TagVrste : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new TagVrste object.
+        /// </summary>
+        /// <param name="tagVrstaID">Initial value of the TagVrstaID property.</param>
+        public static TagVrste CreateTagVrste(global::System.Int32 tagVrstaID)
+        {
+            TagVrste tagVrste = new TagVrste();
+            tagVrste.TagVrstaID = tagVrstaID;
+            return tagVrste;
+        }
 
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 TagVrstaID
+        {
+            get
+            {
+                return _TagVrstaID;
+            }
+            set
+            {
+                if (_TagVrstaID != value)
+                {
+                    OnTagVrstaIDChanging(value);
+                    ReportPropertyChanging("TagVrstaID");
+                    _TagVrstaID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("TagVrstaID");
+                    OnTagVrstaIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _TagVrstaID;
+        partial void OnTagVrstaIDChanging(global::System.Int32 value);
+        partial void OnTagVrstaIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Vrsta
+        {
+            get
+            {
+                return _Vrsta;
+            }
+            set
+            {
+                OnVrstaChanging(value);
+                ReportPropertyChanging("Vrsta");
+                _Vrsta = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Vrsta");
+                OnVrstaChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Vrsta;
+        partial void OnVrstaChanging(Nullable<global::System.Int32> value);
+        partial void OnVrstaChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public global::System.String Opis
+        {
+            get
+            {
+                return _Opis;
+            }
+            set
+            {
+                OnOpisChanging(value);
+                ReportPropertyChanging("Opis");
+                _Opis = StructuralObject.SetValidValue(value, true);
+                ReportPropertyChanged("Opis");
+                OnOpisChanged();
+            }
+        }
+        private global::System.String _Opis;
+        partial void OnOpisChanging(global::System.String value);
+        partial void OnOpisChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_Clanci_TagVrste", "Clanci")]
+        public EntityCollection<Clanci> Clanci
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Clanci>("WikipedModel.FK_Clanci_TagVrste", "Clanci");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Clanci>("WikipedModel.FK_Clanci_TagVrste", "Clanci", value);
+                }
+            }
+        }
+
+        #endregion
     }
 
     #endregion
-
     
 }

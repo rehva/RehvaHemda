@@ -1,0 +1,32 @@
+﻿@model Wikiped.DBBL.DAL.Pitanja
+
+@{
+    ViewBag.Title = "Details";
+    Layout = "~/Views/Shared/Pocetna.cshtml";
+}
+<div class="question">
+ <div class="title">
+    <a>@Html.DisplayFor(model => model.Naziv)</a>
+ </div>
+ <div class="qusummary"> 
+    @Html.DisplayFor(model => model.Opis)
+ </div>
+     <div class="tags t-html t-css t-google-chrome t-heroku t-zurb-foundation">
+            <a href="/questions/tagged/html" class="post-tag" title="" rel="tag">html</a> 
+            <a href="/questions/tagged/css" class="post-tag" title="" rel="tag">css</a> 
+            @*<a href="/questions/tagged/google-chrome" class="post-tag" title="" rel="tag"><img src="http://i.stack.imgur.com/dmHl0.png" height="16" width="18" alt="" class="sponsor-tag-img">google-chrome</a> *@
+            <a href="/questions/tagged/zurb-foundation" class="post-tag" title="" rel="tag">zurb-foundation</a> 
+   </div>
+</div>
+<div class="clear"></div>
+<div class="response"> 
+    <div>Odgovor 1</div> 
+    <div>
+    @Html.DisplayFor(model => model.Opis)
+    </div>
+    
+</div>
+
+
+
+

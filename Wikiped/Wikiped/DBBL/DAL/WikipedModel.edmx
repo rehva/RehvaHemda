@@ -7,7 +7,6 @@
     <Schema Namespace="WikipedModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
         <EntityContainer Name="WikipedModelStoreContainer">
           <EntitySet Name="Algoritmi" EntityType="WikipedModel.Store.Algoritmi" store:Type="Tables" Schema="dbo" />
-          <EntitySet Name="ClanakVrste" EntityType="WikipedModel.Store.ClanakVrste" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Clanci" EntityType="WikipedModel.Store.Clanci" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Drzave" EntityType="WikipedModel.Store.Drzave" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Jezici" EntityType="WikipedModel.Store.Jezici" store:Type="Tables" Schema="dbo" />
@@ -25,12 +24,13 @@
           <EntitySet Name="Tagovi" EntityType="WikipedModel.Store.Tagovi" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TagoviPitanja" EntityType="WikipedModel.Store.TagoviPitanja" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Tags" EntityType="WikipedModel.Store.Tags" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TagVrste" EntityType="WikipedModel.Store.TagVrste" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_Algoritmi_Korisnici" Association="WikipedModel.Store.FK_Algoritmi_Korisnici">
             <End Role="Korisnici" EntitySet="Korisnici" />
             <End Role="Algoritmi" EntitySet="Algoritmi" />
           </AssociationSet>
           <AssociationSet Name="FK_Clanci_TagVrste" Association="WikipedModel.Store.FK_Clanci_TagVrste">
-            <End Role="ClanakVrste" EntitySet="ClanakVrste" />
+            <End Role="TagVrste" EntitySet="TagVrste" />
             <End Role="Clanci" EntitySet="Clanci" />
           </AssociationSet>
           <AssociationSet Name="FK_Komentari_Clanci" Association="WikipedModel.Store.FK_Komentari_Clanci">
@@ -89,10 +89,6 @@
             <End Role="Tagovi" EntitySet="Tagovi" />
             <End Role="TagClanci" EntitySet="TagClanci" />
           </AssociationSet>
-          <AssociationSet Name="FK_TagClanci_Tags" Association="WikipedModel.Store.FK_TagClanci_Tags">
-            <End Role="Tags" EntitySet="Tags" />
-            <End Role="TagClanci" EntitySet="TagClanci" />
-          </AssociationSet>
           <AssociationSet Name="FK_TagoviPitanja_Pitanja" Association="WikipedModel.Store.FK_TagoviPitanja_Pitanja">
             <End Role="Pitanja" EntitySet="Pitanja" />
             <End Role="TagoviPitanja" EntitySet="TagoviPitanja" />
@@ -113,20 +109,12 @@
           <Property Name="KorisnikID" Type="int" />
           <Property Name="Aktivan" Type="int" />
         </EntityType>
-        <EntityType Name="ClanakVrste">
-          <Key>
-            <PropertyRef Name="ClanakVrstaID" />
-          </Key>
-          <Property Name="ClanakVrstaID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="Vrsta" Type="int" />
-          <Property Name="Opis" Type="nvarchar(max)" />
-        </EntityType>
         <EntityType Name="Clanci">
           <Key>
             <PropertyRef Name="ClanakID" />
           </Key>
           <Property Name="ClanakID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="ClanakVrstaID" Type="int" />
+          <Property Name="TagVrstaID" Type="int" />
           <Property Name="Popularnost" Type="int" />
           <Property Name="Ocjenjeno" Type="int" />
           <Property Name="Slika" Type="nvarchar(max)" />
@@ -257,7 +245,7 @@
           </Key>
           <Property Name="TagClanakID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="ClanakID" Type="int" />
-          <Property Name="TagsID" Type="int" />
+          <Property Name="TagID" Type="int" />
         </EntityType>
         <EntityType Name="Tagovi">
           <Key>
@@ -282,6 +270,14 @@
           <Property Name="Ime" Type="nvarchar" MaxLength="50" />
           <Property Name="Opis" Type="nvarchar" MaxLength="255" />
         </EntityType>
+        <EntityType Name="TagVrste">
+          <Key>
+            <PropertyRef Name="TagVrstaID" />
+          </Key>
+          <Property Name="TagVrstaID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Vrsta" Type="int" />
+          <Property Name="Opis" Type="nvarchar(max)" />
+        </EntityType>
         <Association Name="FK_Algoritmi_Korisnici">
           <End Role="Korisnici" Type="WikipedModel.Store.Korisnici" Multiplicity="0..1" />
           <End Role="Algoritmi" Type="WikipedModel.Store.Algoritmi" Multiplicity="*" />
@@ -295,14 +291,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Clanci_TagVrste">
-          <End Role="ClanakVrste" Type="WikipedModel.Store.ClanakVrste" Multiplicity="0..1" />
+          <End Role="TagVrste" Type="WikipedModel.Store.TagVrste" Multiplicity="0..1" />
           <End Role="Clanci" Type="WikipedModel.Store.Clanci" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ClanakVrste">
-              <PropertyRef Name="ClanakVrstaID" />
+            <Principal Role="TagVrste">
+              <PropertyRef Name="TagVrstaID" />
             </Principal>
             <Dependent Role="Clanci">
-              <PropertyRef Name="ClanakVrstaID" />
+              <PropertyRef Name="TagVrstaID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -470,19 +466,7 @@
               <PropertyRef Name="TagID" />
             </Principal>
             <Dependent Role="TagClanci">
-              <PropertyRef Name="TagsID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TagClanci_Tags">
-          <End Role="Tags" Type="WikipedModel.Store.Tags" Multiplicity="0..1" />
-          <End Role="TagClanci" Type="WikipedModel.Store.TagClanci" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tags">
               <PropertyRef Name="TagID" />
-            </Principal>
-            <Dependent Role="TagClanci">
-              <PropertyRef Name="TagsID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -516,7 +500,6 @@
       <Schema Namespace="WikipedModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
         <EntityContainer Name="WikipedEntities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="Algoritmi" EntityType="WikipedModel.Algoritmi" />
-          <EntitySet Name="ClanakVrste" EntityType="WikipedModel.ClanakVrste" />
           <EntitySet Name="Clanci" EntityType="WikipedModel.Clanci" />
           <EntitySet Name="Drzave" EntityType="WikipedModel.Drzave" />
           <EntitySet Name="Jezici" EntityType="WikipedModel.Jezici" />
@@ -534,12 +517,13 @@
           <EntitySet Name="Tagovi" EntityType="WikipedModel.Tagovi" />
           <EntitySet Name="TagoviPitanja" EntityType="WikipedModel.TagoviPitanja" />
           <EntitySet Name="Tags" EntityType="WikipedModel.Tags" />
+          <EntitySet Name="TagVrste" EntityType="WikipedModel.TagVrste" />
           <AssociationSet Name="FK_Algoritmi_Korisnici" Association="WikipedModel.FK_Algoritmi_Korisnici">
             <End Role="Korisnici" EntitySet="Korisnici" />
             <End Role="Algoritmi" EntitySet="Algoritmi" />
           </AssociationSet>
           <AssociationSet Name="FK_Clanci_TagVrste" Association="WikipedModel.FK_Clanci_TagVrste">
-            <End Role="ClanakVrste" EntitySet="ClanakVrste" />
+            <End Role="TagVrste" EntitySet="TagVrste" />
             <End Role="Clanci" EntitySet="Clanci" />
           </AssociationSet>
           <AssociationSet Name="FK_Komentari_Clanci" Association="WikipedModel.FK_Komentari_Clanci">
@@ -602,10 +586,6 @@
             <End Role="Tagovi" EntitySet="Tagovi" />
             <End Role="TagClanci" EntitySet="TagClanci" />
           </AssociationSet>
-          <AssociationSet Name="FK_TagClanci_Tags" Association="WikipedModel.FK_TagClanci_Tags">
-            <End Role="Tags" EntitySet="Tags" />
-            <End Role="TagClanci" EntitySet="TagClanci" />
-          </AssociationSet>
           <AssociationSet Name="FK_TagoviPitanja_Tags" Association="WikipedModel.FK_TagoviPitanja_Tags">
             <End Role="Tags" EntitySet="Tags" />
             <End Role="TagoviPitanja" EntitySet="TagoviPitanja" />
@@ -623,26 +603,17 @@
           <Property Type="Int32" Name="Aktivan" />
           <NavigationProperty Name="Korisnici" Relationship="WikipedModel.FK_Algoritmi_Korisnici" FromRole="Algoritmi" ToRole="Korisnici" />
         </EntityType>
-        <EntityType Name="ClanakVrste">
-          <Key>
-            <PropertyRef Name="ClanakVrstaID" />
-          </Key>
-          <Property Type="Int32" Name="ClanakVrstaID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="Vrsta" />
-          <Property Type="String" Name="Opis" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="Clanci" Relationship="WikipedModel.FK_Clanci_TagVrste" FromRole="ClanakVrste" ToRole="Clanci" />
-        </EntityType>
         <EntityType Name="Clanci">
           <Key>
             <PropertyRef Name="ClanakID" />
           </Key>
           <Property Type="Int32" Name="ClanakID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Type="Int32" Name="ClanakVrstaID" />
+          <Property Type="Int32" Name="TagVrstaID" />
           <Property Type="Int32" Name="Popularnost" />
           <Property Type="Int32" Name="Ocjenjeno" />
           <Property Type="String" Name="Slika" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Type="Guid" Name="Guid" />
-          <NavigationProperty Name="ClanakVrste" Relationship="WikipedModel.FK_Clanci_TagVrste" FromRole="Clanci" ToRole="ClanakVrste" />
+          <NavigationProperty Name="TagVrste" Relationship="WikipedModel.FK_Clanci_TagVrste" FromRole="Clanci" ToRole="TagVrste" />
           <NavigationProperty Name="Komentari" Relationship="WikipedModel.FK_Komentari_Clanci" FromRole="Clanci" ToRole="Komentari" />
           <NavigationProperty Name="OcjenaKorisnici" Relationship="WikipedModel.FK_OcjenaKorisnici_Clanci" FromRole="Clanci" ToRole="OcjenaKorisnici" />
           <NavigationProperty Name="Sadrzaji" Relationship="WikipedModel.FK_Sadrzaji_Clanci" FromRole="Clanci" ToRole="Sadrzaji" />
@@ -796,10 +767,9 @@
           </Key>
           <Property Type="Int32" Name="TagClanakID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="Int32" Name="ClanakID" />
-          <Property Type="Int32" Name="TagsID" />
+          <Property Type="Int32" Name="TagID" />
           <NavigationProperty Name="Clanci" Relationship="WikipedModel.FK_TagClanci_Clanci" FromRole="TagClanci" ToRole="Clanci" />
           <NavigationProperty Name="Tagovi" Relationship="WikipedModel.FK_TagClanci_Tagovi" FromRole="TagClanci" ToRole="Tagovi" />
-          <NavigationProperty Name="Tags" Relationship="WikipedModel.FK_TagClanci_Tags" FromRole="TagClanci" ToRole="Tags" />
         </EntityType>
         <EntityType Name="Tagovi">
           <Key>
@@ -826,8 +796,16 @@
           <Property Type="Int32" Name="TagID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Type="String" Name="Ime" MaxLength="50" FixedLength="false" Unicode="true" />
           <Property Type="String" Name="Opis" MaxLength="255" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="TagClanci" Relationship="WikipedModel.FK_TagClanci_Tags" FromRole="Tags" ToRole="TagClanci" />
           <NavigationProperty Name="TagoviPitanja" Relationship="WikipedModel.FK_TagoviPitanja_Tags" FromRole="Tags" ToRole="TagoviPitanja" />
+        </EntityType>
+        <EntityType Name="TagVrste">
+          <Key>
+            <PropertyRef Name="TagVrstaID" />
+          </Key>
+          <Property Type="Int32" Name="TagVrstaID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Vrsta" />
+          <Property Type="String" Name="Opis" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Clanci" Relationship="WikipedModel.FK_Clanci_TagVrste" FromRole="TagVrste" ToRole="Clanci" />
         </EntityType>
         <Association Name="FK_Algoritmi_Korisnici">
           <End Type="WikipedModel.Korisnici" Role="Korisnici" Multiplicity="0..1" />
@@ -842,14 +820,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Clanci_TagVrste">
-          <End Type="WikipedModel.ClanakVrste" Role="ClanakVrste" Multiplicity="0..1" />
+          <End Type="WikipedModel.TagVrste" Role="TagVrste" Multiplicity="0..1" />
           <End Type="WikipedModel.Clanci" Role="Clanci" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="ClanakVrste">
-              <PropertyRef Name="ClanakVrstaID" />
+            <Principal Role="TagVrste">
+              <PropertyRef Name="TagVrstaID" />
             </Principal>
             <Dependent Role="Clanci">
-              <PropertyRef Name="ClanakVrstaID" />
+              <PropertyRef Name="TagVrstaID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1029,19 +1007,7 @@
               <PropertyRef Name="TagID" />
             </Principal>
             <Dependent Role="TagClanci">
-              <PropertyRef Name="TagsID" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_TagClanci_Tags">
-          <End Type="WikipedModel.Tags" Role="Tags" Multiplicity="0..1" />
-          <End Type="WikipedModel.TagClanci" Role="TagClanci" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Tags">
               <PropertyRef Name="TagID" />
-            </Principal>
-            <Dependent Role="TagClanci">
-              <PropertyRef Name="TagsID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1075,15 +1041,6 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="ClanakVrste">
-            <EntityTypeMapping TypeName="WikipedModel.ClanakVrste">
-              <MappingFragment StoreEntitySet="ClanakVrste">
-                <ScalarProperty Name="Opis" ColumnName="Opis" />
-                <ScalarProperty Name="Vrsta" ColumnName="Vrsta" />
-                <ScalarProperty Name="ClanakVrstaID" ColumnName="ClanakVrstaID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="Clanci">
             <EntityTypeMapping TypeName="WikipedModel.Clanci">
               <MappingFragment StoreEntitySet="Clanci">
@@ -1091,7 +1048,7 @@
                 <ScalarProperty Name="Slika" ColumnName="Slika" />
                 <ScalarProperty Name="Ocjenjeno" ColumnName="Ocjenjeno" />
                 <ScalarProperty Name="Popularnost" ColumnName="Popularnost" />
-                <ScalarProperty Name="ClanakVrstaID" ColumnName="ClanakVrstaID" />
+                <ScalarProperty Name="TagVrstaID" ColumnName="TagVrstaID" />
                 <ScalarProperty Name="ClanakID" ColumnName="ClanakID" />
               </MappingFragment>
             </EntityTypeMapping>
@@ -1230,7 +1187,7 @@
           <EntitySetMapping Name="TagClanci">
             <EntityTypeMapping TypeName="WikipedModel.TagClanci">
               <MappingFragment StoreEntitySet="TagClanci">
-                <ScalarProperty Name="TagsID" ColumnName="TagsID" />
+                <ScalarProperty Name="TagID" ColumnName="TagID" />
                 <ScalarProperty Name="ClanakID" ColumnName="ClanakID" />
                 <ScalarProperty Name="TagClanakID" ColumnName="TagClanakID" />
               </MappingFragment>
@@ -1262,6 +1219,15 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="TagVrste">
+            <EntityTypeMapping TypeName="WikipedModel.TagVrste">
+              <MappingFragment StoreEntitySet="TagVrste">
+                <ScalarProperty Name="Opis" ColumnName="Opis" />
+                <ScalarProperty Name="Vrsta" ColumnName="Vrsta" />
+                <ScalarProperty Name="TagVrstaID" ColumnName="TagVrstaID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -1283,155 +1249,154 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="WikipedModel">
-        <EntityTypeShape EntityType="WikipedModel.Algoritmi" Width="1.5" PointX="5.25" PointY="5.625" Height="2.3648893229166674" />
-        <EntityTypeShape EntityType="WikipedModel.ClanakVrste" Width="1.5" PointX="3.75" PointY="1.625" Height="1.7879850260416674" />
-        <EntityTypeShape EntityType="WikipedModel.Clanci" Width="1.5" PointX="6" PointY="0.875" Height="3.1340950520833388" />
-        <EntityTypeShape EntityType="WikipedModel.Drzave" Width="1.5" PointX="0.75" PointY="8" Height="1.595683593749996" />
-        <EntityTypeShape EntityType="WikipedModel.Jezici" Width="1.5" PointX="6" PointY="25.625" Height="1.7879850260416674" />
-        <EntityTypeShape EntityType="WikipedModel.Komentari" Width="1.5" PointX="5.25" PointY="9.625" Height="2.3648893229166674" />
-        <EntityTypeShape EntityType="WikipedModel.Korisnici" Width="1.5" PointX="3" PointY="6.75" Height="4.0956022135416674" />
-        <EntityTypeShape EntityType="WikipedModel.KorisnikVrste" Width="1.5" PointX="0.75" PointY="4.875" Height="1.7879850260416674" />
-        <EntityTypeShape EntityType="WikipedModel.OcjenaKorisnici" Width="1.5" PointX="8.25" PointY="7.625" Height="2.3648893229166674" />
-        <EntityTypeShape EntityType="WikipedModel.Ocjene" Width="1.5" PointX="6" PointY="19.875" Height="1.7879850260416674" />
-        <EntityTypeShape EntityType="WikipedModel.Odgovori" Width="1.5" PointX="7.5" PointY="15.375" Height="2.3648893229166674" />
-        <EntityTypeShape EntityType="WikipedModel.OdgovorNaOdgovor" Width="1.5" PointX="9.75" PointY="15.5" Height="2.172587890624996" />
-        <EntityTypeShape EntityType="WikipedModel.Pitanja" Width="1.5" PointX="5.25" PointY="15" Height="3.1340950520833246" />
-        <EntityTypeShape EntityType="WikipedModel.Sadrzaji" Width="1.5" PointX="8.25" PointY="1.25" Height="2.5571907552083388" />
-        <EntityTypeShape EntityType="WikipedModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="0.75" Height="1.9802864583333246" />
-        <EntityTypeShape EntityType="WikipedModel.TagClanci" Width="1.5" PointX="10.25" PointY="11.625" Height="2.1725878906250102" />
-        <EntityTypeShape EntityType="WikipedModel.Tagovi" Width="1.5" PointX="8" PointY="5" Height="1.595683593749996" />
-        <EntityTypeShape EntityType="WikipedModel.TagoviPitanja" Width="1.5" PointX="7.5" PointY="12.625" Height="1.9802864583333388" />
-        <EntityTypeShape EntityType="WikipedModel.Tags" Width="1.5" PointX="5.25" PointY="22.625" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="WikipedModel.Algoritmi" Width="1.5" PointX="5.25" PointY="7.875" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="WikipedModel.Clanci" Width="1.5" PointX="6" PointY="3.125" Height="3.1340950520833388" />
+        <EntityTypeShape EntityType="WikipedModel.Drzave" Width="1.5" PointX="0.75" PointY="10.25" Height="1.5956835937500031" />
+        <EntityTypeShape EntityType="WikipedModel.Jezici" Width="1.5" PointX="6" PointY="30.875" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="WikipedModel.Komentari" Width="1.5" PointX="5.25" PointY="11.875" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="WikipedModel.Korisnici" Width="1.5" PointX="3" PointY="9" Height="4.0956022135416674" />
+        <EntityTypeShape EntityType="WikipedModel.KorisnikVrste" Width="1.5" PointX="0.75" PointY="7.125" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="WikipedModel.OcjenaKorisnici" Width="1.5" PointX="8.25" PointY="9.875" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="WikipedModel.Ocjene" Width="1.5" PointX="6" PointY="22" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="WikipedModel.Odgovori" Width="1.5" PointX="7.5" PointY="17.625" Height="2.3648893229166674" />
+        <EntityTypeShape EntityType="WikipedModel.OdgovorNaOdgovor" Width="1.5" PointX="9.75" PointY="17.75" Height="2.172587890624996" />
+        <EntityTypeShape EntityType="WikipedModel.Pitanja" Width="1.5" PointX="5.25" PointY="17.25" Height="3.1340950520833246" />
+        <EntityTypeShape EntityType="WikipedModel.Sadrzaji" Width="1.5" PointX="8.25" PointY="3.5" Height="2.5571907552083388" />
+        <EntityTypeShape EntityType="WikipedModel.sysdiagrams" Width="1.5" PointX="0.75" PointY="3" Height="1.9802864583333246" />
+        <EntityTypeShape EntityType="WikipedModel.TagClanci" Width="1.5" PointX="8.25" PointY="0.75" Height="1.9802864583333388" />
+        <EntityTypeShape EntityType="WikipedModel.Tagovi" Width="1.5" PointX="6" PointY="27.625" Height="1.595683593749996" />
+        <EntityTypeShape EntityType="WikipedModel.TagoviPitanja" Width="1.5" PointX="7.5" PointY="14.75" Height="1.9802864583333371" />
+        <EntityTypeShape EntityType="WikipedModel.Tags" Width="1.5" PointX="5.25" PointY="24.875" Height="1.7879850260416674" />
+        <EntityTypeShape EntityType="WikipedModel.TagVrste" Width="1.5" PointX="3.75" PointY="3.875" Height="1.7879850260416674" />
         <AssociationConnector Association="WikipedModel.FK_Algoritmi_Korisnici" >
-          <ConnectorPoint PointX="4.5" PointY="7.3699446614583337" />
-          <ConnectorPoint PointX="5.25" PointY="7.3699446614583337" />
+          <ConnectorPoint PointX="4.5" PointY="9.6199446614583337" />
+          <ConnectorPoint PointX="5.25" PointY="9.6199446614583337" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_Clanci_TagVrste" >
-          <ConnectorPoint PointX="5.25" PointY="2.5189925130208337" />
-          <ConnectorPoint PointX="6" PointY="2.5189925130208337" />
+          <ConnectorPoint PointX="5.25" PointY="4.7689925130208337" />
+          <ConnectorPoint PointX="6" PointY="4.7689925130208337" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_Komentari_Clanci" >
-          <ConnectorPoint PointX="7.1250005000000005" PointY="4.0090950520833388" />
-          <ConnectorPoint PointX="7.1250005000000005" PointY="10.807444661458334" />
-          <ConnectorPoint PointX="7.0208310833333334" PointY="10.807444661458334" />
-          <ConnectorPoint PointX="6.8541644166666673" PointY="10.807444661458334" />
-          <ConnectorPoint PointX="6.75" PointY="10.807444661458334" />
+          <ConnectorPoint PointX="7.1250005000000005" PointY="6.2590950520833388" />
+          <ConnectorPoint PointX="7.1250005000000005" PointY="13.057444661458334" />
+          <ConnectorPoint PointX="7.0520835833333333" PointY="13.057444661458334" />
+          <ConnectorPoint PointX="6.8854169166666672" PointY="13.057444661458334" />
+          <ConnectorPoint PointX="6.75" PointY="13.057444661458334" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_OcjenaKorisnici_Clanci" >
-          <ConnectorPoint PointX="7.34375275" PointY="4.0090950520833388" />
-          <ConnectorPoint PointX="7.34375275" PointY="8.8074446614583337" />
-          <ConnectorPoint PointX="7.916666666666667" PointY="8.8074446614583337" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="8.8074446614583337" />
-          <ConnectorPoint PointX="8.25" PointY="8.8074446614583337" />
+          <ConnectorPoint PointX="7.34375275" PointY="6.2590950520833388" />
+          <ConnectorPoint PointX="7.34375275" PointY="11.057444661458334" />
+          <ConnectorPoint PointX="7.666666666666667" PointY="11.057444661458334" />
+          <ConnectorPoint PointX="7.833333333333333" PointY="11.057444661458334" />
+          <ConnectorPoint PointX="7.916666666666667" PointY="11.057444661458334" />
+          <ConnectorPoint PointX="8.0833333333333339" PointY="11.057444661458334" />
+          <ConnectorPoint PointX="8.25" PointY="11.057444661458334" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_Sadrzaji_Clanci" >
-          <ConnectorPoint PointX="7.5" PointY="2.5285953776041694" />
-          <ConnectorPoint PointX="8.25" PointY="2.5285953776041694" />
+          <ConnectorPoint PointX="7.5" PointY="4.7785953776041694" />
+          <ConnectorPoint PointX="7.666666666666667" PointY="4.7785953776041685" />
+          <ConnectorPoint PointX="7.833333333333333" PointY="4.7785953776041694" />
+          <ConnectorPoint PointX="8.25" PointY="4.7785953776041694" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_TagClanci_Clanci" >
-          <ConnectorPoint PointX="6.93749775" PointY="4.0090950520833388" />
-          <ConnectorPoint PointX="6.93749775" PointY="12.307444661458334" />
-          <ConnectorPoint PointX="7.1510432916666673" PointY="12.307444661458334" />
-          <ConnectorPoint PointX="7.3177099583333334" PointY="12.307444661458334" />
-          <ConnectorPoint PointX="9.1666666666666661" PointY="12.307444661458334" />
-          <ConnectorPoint PointX="9.3333333333333339" PointY="12.307444661458334" />
-          <ConnectorPoint PointX="10.25" PointY="12.307444661458334" />
+          <ConnectorPoint PointX="6.75" PointY="3.125" />
+          <ConnectorPoint PointX="6.75" PointY="1.7401432291666694" />
+          <ConnectorPoint PointX="8.25" PointY="1.7401432291666694" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_Korisnici_Drzave" >
-          <ConnectorPoint PointX="2.25" PointY="8.797841796874998" />
-          <ConnectorPoint PointX="3" PointY="8.797841796874998" />
+          <ConnectorPoint PointX="2.25" PointY="11.047841796875002" />
+          <ConnectorPoint PointX="3" PointY="11.047841796875002" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_Sadrzaji_Jezici" >
-          <ConnectorPoint PointX="7.5" PointY="26.518992513020834" />
-          <ConnectorPoint PointX="9.25" PointY="26.518992513020834" />
-          <ConnectorPoint PointX="9.25" PointY="10.239889322916667" />
-          <ConnectorPoint PointX="8" PointY="10.239889322916667" />
-          <ConnectorPoint PointX="8" PointY="6.845683593749996" />
-          <ConnectorPoint PointX="9.75" PointY="6.845683593749996" />
-          <ConnectorPoint PointX="9.75" PointY="4.1821907552083388" />
-          <ConnectorPoint PointX="9" PointY="4.1821907552083388" />
-          <ConnectorPoint PointX="9" PointY="3.8071907552083388" />
+          <ConnectorPoint PointX="7.5" PointY="31.768992513020834" />
+          <ConnectorPoint PointX="9.25" PointY="31.768992513020834" />
+          <ConnectorPoint PointX="9.25" PointY="12.489889322916667" />
+          <ConnectorPoint PointX="8" PointY="12.489889322916667" />
+          <ConnectorPoint PointX="8" PointY="6.4321907552083388" />
+          <ConnectorPoint PointX="9" PointY="6.4321907552083388" />
+          <ConnectorPoint PointX="9" PointY="6.0571907552083388" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_Komentari_Korisnici" >
-          <ConnectorPoint PointX="4.5" PointY="10.235301106770834" />
-          <ConnectorPoint PointX="5.25" PointY="10.235301106770834" />
+          <ConnectorPoint PointX="4.5" PointY="12.485301106770834" />
+          <ConnectorPoint PointX="5.25" PointY="12.485301106770834" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_Korisnici_KorisnikVrste" >
-          <ConnectorPoint PointX="2.25" PointY="5.7689925130208337" />
-          <ConnectorPoint PointX="3.75" PointY="5.7689925130208337" />
-          <ConnectorPoint PointX="3.75" PointY="6.75" />
+          <ConnectorPoint PointX="2.25" PointY="8.0189925130208337" />
+          <ConnectorPoint PointX="3.75" PointY="8.0189925130208337" />
+          <ConnectorPoint PointX="3.75" PointY="9" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_OcjenaKorisnici_Korisnici" >
-          <ConnectorPoint PointX="4.5" PointY="8.3674169921875" />
-          <ConnectorPoint PointX="6.8541644166666673" PointY="8.3674169921875" />
-          <ConnectorPoint PointX="7.0208310833333334" PointY="8.3674169921875" />
-          <ConnectorPoint PointX="7.0416671666666675" PointY="8.3674169921875" />
-          <ConnectorPoint PointX="7.2083338333333336" PointY="8.3674169921875" />
-          <ConnectorPoint PointX="7.2604194166666671" PointY="8.3674169921875" />
-          <ConnectorPoint PointX="7.4270860833333332" PointY="8.3674169921875" />
-          <ConnectorPoint PointX="7.916666666666667" PointY="8.3674169921875" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="8.3674169921875" />
-          <ConnectorPoint PointX="8.25" PointY="8.3674169921875" />
+          <ConnectorPoint PointX="4.5" PointY="10.6174169921875" />
+          <ConnectorPoint PointX="7.0416671666666675" PointY="10.6174169921875" />
+          <ConnectorPoint PointX="7.2083338333333336" PointY="10.6174169921875" />
+          <ConnectorPoint PointX="7.2604194166666671" PointY="10.6174169921875" />
+          <ConnectorPoint PointX="7.4270860833333332" PointY="10.6174169921875" />
+          <ConnectorPoint PointX="7.666666666666667" PointY="10.6174169921875" />
+          <ConnectorPoint PointX="7.833333333333333" PointY="10.6174169921875" />
+          <ConnectorPoint PointX="7.916666666666667" PointY="10.6174169921875" />
+          <ConnectorPoint PointX="8.0833333333333339" PointY="10.6174169921875" />
+          <ConnectorPoint PointX="8.25" PointY="10.6174169921875" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_Pitanja_Korisnici" >
-          <ConnectorPoint PointX="3.75" PointY="10.845602213541667" />
-          <ConnectorPoint PointX="3.75" PointY="16.567047526041662" />
-          <ConnectorPoint PointX="5.25" PointY="16.567047526041662" />
+          <ConnectorPoint PointX="3.75" PointY="13.095602213541667" />
+          <ConnectorPoint PointX="3.75" PointY="18.817047526041662" />
+          <ConnectorPoint PointX="5.25" PointY="18.817047526041662" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_OcjenaKorisnici_Ocjene" >
-          <ConnectorPoint PointX="7.234376625" PointY="19.875" />
-          <ConnectorPoint PointX="7.234376625" PointY="9.21622483072916" />
-          <ConnectorPoint PointX="7.916666666666667" PointY="9.21622483072916" />
-          <ConnectorPoint PointX="8.0833333333333339" PointY="9.21622483072916" />
-          <ConnectorPoint PointX="8.25" PointY="9.21622483072916" />
+          <ConnectorPoint PointX="6.96875025" PointY="22" />
+          <ConnectorPoint PointX="6.96875025" PointY="11.466224830729161" />
+          <ConnectorPoint PointX="7.0416671666666675" PointY="11.466224830729161" />
+          <ConnectorPoint PointX="7.2083338333333336" PointY="11.466224830729161" />
+          <ConnectorPoint PointX="7.666666666666667" PointY="11.466224830729161" />
+          <ConnectorPoint PointX="7.833333333333333" PointY="11.466224830729161" />
+          <ConnectorPoint PointX="7.916666666666667" PointY="11.466224830729161" />
+          <ConnectorPoint PointX="8.0833333333333339" PointY="11.466224830729161" />
+          <ConnectorPoint PointX="8.25" PointY="11.466224830729161" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_Odgovori_Pitanja" >
-          <ConnectorPoint PointX="6.75" PointY="16.557444661458334" />
-          <ConnectorPoint PointX="6.916666666666667" PointY="16.557444661458334" />
-          <ConnectorPoint PointX="7.083333333333333" PointY="16.557444661458334" />
-          <ConnectorPoint PointX="7.1510432916666673" PointY="16.557444661458334" />
-          <ConnectorPoint PointX="7.3177099583333334" PointY="16.557444661458334" />
-          <ConnectorPoint PointX="7.5" PointY="16.557444661458334" />
+          <ConnectorPoint PointX="6.75" PointY="18.807444661458334" />
+          <ConnectorPoint PointX="6.8854169166666672" PointY="18.807444661458334" />
+          <ConnectorPoint PointX="7.0520835833333333" PointY="18.807444661458334" />
+          <ConnectorPoint PointX="7.166666666666667" PointY="18.807444661458334" />
+          <ConnectorPoint PointX="7.333333333333333" PointY="18.807444661458334" />
+          <ConnectorPoint PointX="7.5" PointY="18.807444661458334" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_OdgovorNaOdgovor_Odgovori" >
-          <ConnectorPoint PointX="9" PointY="16.586293945312498" />
-          <ConnectorPoint PointX="9.1666666666666661" PointY="16.586293945312498" />
-          <ConnectorPoint PointX="9.3333333333333339" PointY="16.586293945312498" />
-          <ConnectorPoint PointX="9.75" PointY="16.586293945312498" />
+          <ConnectorPoint PointX="9" PointY="18.836293945312498" />
+          <ConnectorPoint PointX="9.1666666666666661" PointY="18.836293945312498" />
+          <ConnectorPoint PointX="9.3333333333333339" PointY="18.836293945312498" />
+          <ConnectorPoint PointX="9.4166666666666661" PointY="18.836293945312498" />
+          <ConnectorPoint PointX="9.5833333333333339" PointY="18.836293945312498" />
+          <ConnectorPoint PointX="9.75" PointY="18.836293945312498" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_TagoviPitanja_Pitanja" >
-          <ConnectorPoint PointX="6" PointY="15" />
-          <ConnectorPoint PointX="6" PointY="13.615143229166669" />
-          <ConnectorPoint PointX="7.1510432916666673" PointY="13.615143229166669" />
-          <ConnectorPoint PointX="7.3177099583333334" PointY="13.615143229166669" />
-          <ConnectorPoint PointX="7.5" PointY="13.615143229166669" />
+          <ConnectorPoint PointX="6" PointY="17.25" />
+          <ConnectorPoint PointX="6" PointY="15.740143229166669" />
+          <ConnectorPoint PointX="6.8854169166666672" PointY="15.740143229166669" />
+          <ConnectorPoint PointX="7.0520835833333333" PointY="15.740143229166669" />
+          <ConnectorPoint PointX="7.5" PointY="15.740143229166669" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_TagClanci_Tagovi" >
-          <ConnectorPoint PointX="9.5" PointY="5.797841796874998" />
-          <ConnectorPoint PointX="9.6666666666666661" PointY="5.7978417968749971" />
-          <ConnectorPoint PointX="9.8333333333333339" PointY="5.797841796874998" />
-          <ConnectorPoint PointX="11" PointY="5.797841796874998" />
-          <ConnectorPoint PointX="11" PointY="11.625" />
-        </AssociationConnector>
-        <AssociationConnector Association="WikipedModel.FK_TagClanci_Tags" >
-          <ConnectorPoint PointX="6.75" PointY="23.615143229166669" />
-          <ConnectorPoint PointX="9.1666666666666661" PointY="23.615143229166669" />
-          <ConnectorPoint PointX="9.3333333333333339" PointY="23.615143229166669" />
-          <ConnectorPoint PointX="11.53125" PointY="23.615143229166669" />
-          <ConnectorPoint PointX="11.53125" PointY="13.79758789062501" />
+          <ConnectorPoint PointX="7.5" PointY="28.422841796874998" />
+          <ConnectorPoint PointX="9.1666666666666661" PointY="28.422841796874998" />
+          <ConnectorPoint PointX="9.3333333333333339" PointY="28.422841796874998" />
+          <ConnectorPoint PointX="9.5" PointY="28.422841796874998" />
+          <ConnectorPoint PointX="9.5" PointY="12.739889322916667" />
+          <ConnectorPoint PointX="9.3333333333333339" PointY="12.739889322916667" />
+          <ConnectorPoint PointX="9.1666666666666661" PointY="12.739889322916667" />
+          <ConnectorPoint PointX="7.75" PointY="12.739889322916667" />
+          <ConnectorPoint PointX="7.75" PointY="3.1052864583333388" />
+          <ConnectorPoint PointX="9" PointY="3.1052864583333388" />
+          <ConnectorPoint PointX="9" PointY="2.7302864583333388" />
         </AssociationConnector>
         <AssociationConnector Association="WikipedModel.FK_TagoviPitanja_Tags" >
-          <ConnectorPoint PointX="6" PointY="22.625" />
-          <ConnectorPoint PointX="6" PointY="21.912985026041667" />
-          <ConnectorPoint PointX="7.75" PointY="21.912985026041667" />
-          <ConnectorPoint PointX="7.75" PointY="18.384095052083325" />
-          <ConnectorPoint PointX="7.3177099583333334" PointY="18.384095052083325" />
-          <ConnectorPoint PointX="7.1510432916666673" PointY="18.384095052083325" />
-          <ConnectorPoint PointX="7" PointY="18.384095052083325" />
-          <ConnectorPoint PointX="7" PointY="14.141466843749999" />
-          <ConnectorPoint PointX="7.1510432916666673" PointY="14.141466843749999" />
-          <ConnectorPoint PointX="7.3177099583333334" PointY="14.141466843749999" />
-          <ConnectorPoint PointX="7.5" PointY="14.141466843749999" />
+          <ConnectorPoint PointX="6.75" PointY="25.768992513020834" />
+          <ConnectorPoint PointX="8.25" PointY="25.768992513020834" />
+          <ConnectorPoint PointX="8.25" PointY="20.239889322916667" />
+          <ConnectorPoint PointX="7.25" PointY="20.239889322916667" />
+          <ConnectorPoint PointX="7.25" PointY="17.105286458333339" />
+          <ConnectorPoint PointX="8.25" PointY="17.105286458333339" />
+          <ConnectorPoint PointX="8.25" PointY="16.730286458333339" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

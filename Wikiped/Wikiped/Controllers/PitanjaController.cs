@@ -19,8 +19,15 @@ namespace Wikiped.Controllers
                 pitanja= pt.GetAllPitanja();
             }
             return View(pitanja);
-            
-            
+        }
+        public ActionResult Details(int id)
+        {
+            DBBL.DAL.Pitanja pitanje;
+            using (Pitanja pt = new Pitanja())
+            {
+                pitanje = pt.GetPitanjeByID(id);
+            }
+            return View(pitanje);
         }
 
     }
