@@ -1,0 +1,70 @@
+﻿@model IEnumerable<Wikiped.DBBL.DAL.Pitanja>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Pocetna.cshtml";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Naziv)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Opis)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Datum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BrojGlasova)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BrojPregleda)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.KorisnikID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TemaID)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Naziv)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Opis)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Datum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BrojGlasova)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BrojPregleda)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.KorisnikID)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TemaID)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.PitanjeID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.PitanjeID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.PitanjeID })
+        </td>
+    </tr>
+}
+
+</table>
