@@ -304,7 +304,10 @@ a:visited {
     border-top: 1px solid #eaeaea;
     margin-top: 10px;
 }
-.admir
+.testKlasa
+{
+    azimuth:inherit;
+}.admir
 {
     color:Red;
 }
