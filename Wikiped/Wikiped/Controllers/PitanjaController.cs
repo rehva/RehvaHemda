@@ -22,11 +22,13 @@ namespace Wikiped.Controllers
         }
         public ActionResult Details(int id)
         {
-            DBBL.DAL.Pitanja pitanje;
+            Pitanja pitanje=new Pitanja();
             using (Pitanja pt = new Pitanja())
             {
-                pitanje = pt.GetPitanjeByID(id);
+                pt.SetAllDetaByPitanjeID(id);
+                pitanje = pt;
             }
+            
             return View(pitanje);
         }
 

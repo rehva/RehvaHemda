@@ -10,6 +10,7 @@
 @script("Public/registracija.js")
 @script("validacija/languages/jquery.validationEngine-en.js")
 @script("validacija/jquery.validationEngine.js")
+
  @helper script(string scriptname){
      
      <script src= "@Url.Content("/Script/" + scriptname)" type="text/javascript"></script>
@@ -96,7 +97,7 @@
     </div>
 </div>
 
-<div class="foothers">
+@*<div class="foothers">
     <div class="OkolicaMenijaHomeFoot">
                <div class="GdjeTextFoot">Privacy</div>
         </div>
@@ -109,7 +110,7 @@
    </div>
                
         </div>
-</div>
+</div>*@
 @using (Html.BeginForm("Index","Index",FormMethod.Post, new { id="frmReg"}))
 {
     <div id="registracijskaForma">

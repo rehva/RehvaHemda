@@ -122,6 +122,7 @@
     <Compile Include="Models\CustomAuthorizeAttribute.cs" />
     <Compile Include="Models\ExtensionMethod.cs" />
     <Compile Include="Models\KorisniciServis.cs" />
+    <Compile Include="Models\OdgovoriSaO.cs" />
     <Compile Include="Models\Pitanja.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
