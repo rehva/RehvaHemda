@@ -31,6 +31,32 @@ namespace Wikiped.Controllers
             
             return View(pitanje);
         }
+        public ActionResult VoteUp(int id, int voteNumber)
+        {
+            voteNumber++;
+            
+            return Json(new { voteNumber = voteNumber });
+        }
+        public ActionResult VoteDown(int id, int voteNumber)
+        {
+            voteNumber--;
+            return Json(new { voteNumber = voteNumber });
+        }
 
+        //public static MvcHtmlString ToJson(this HtmlHelper html, object obj)
+        //{
+        //    JavaScriptSerializer serializer = new JavaScriptSerializer();
+        //    return MvcHtmlString.Create(serializer.Serialize(obj));
+        //}
+
+        //public static MvcHtmlString ToJson(this HtmlHelper html, object obj, int recursionDepth)
+        //{
+        //    JavaScriptSerializer serializer = new JavaScriptSerializer();
+        //    serializer.RecursionLimit = recursionDepth;
+        //    return MvcHtmlString.Create(serializer.Serialize(obj));
+        //}
+        // <script>
+        // var s = @(Html.ToJson(Model.Content));
+        //</script>
     }
 }
