@@ -448,3 +448,74 @@ text-align: center;
 {
     text-decoration:underline;
 }
+.clanak-wraper-left
+{
+    width:466px;
+    min-height:300px;
+    height:auto;
+    overflow:hidden;
+    background:#f5fffa;
+    float:left;
+    border:1px solid #cef2e0;
+    border-radius:3px;
+    box-shadow: 0 3px 3px #DDD;
+    -webkit-box-shadow: 1px 5px 4px gray;
+    
+}
+.clanak-wraper-right
+{
+    width:466px;
+    min-height:300px;
+    height:auto;
+    overflow:hidden;
+    background:#f5fffa;
+    float:right;
+    border:1px solid #cef2e0;
+    border-radius: 3px;
+    box-shadow: 0 3px 3px #DDD;
+    -webkit-box-shadow: 1px 5px 4px gray;
+    
+}
+.clanak-naslov
+{
+    float:left;
+    width:446px;
+    min-height:25px;
+    height:auto;
+    font-size:15px;
+    font-weight:bold;
+    overflow:hidden;
+    margin:10px 5px 5px 5px;
+    padding:0px 5px 0px 5px;
+    background:#cef2e0;
+    border-radius: 4px;
+}
+.clanak-slika
+{
+    float:left;
+    width:120px;
+    height:120px;
+    margin:0px 5px 0px 0px;
+    background:blue;
+    border-radius: 3px;
+  
+}
+
+.clanak-text
+{
+    text-align:justify;
+    font-size:12px;
+    margin:5px;
+   
+}
+.clanak-read-more
+{
+    
+   display:inline;
+   font-weight:bold;
+   margin:0px 5px 0px 5px;
+}
+.clanak-read-more:hover
+{
+    cursor:pointer;
+}
