@@ -25,6 +25,10 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_Sadrzaji_Clanci", "Clanci", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Clanci), "Sadrzaji", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Sadrzaji), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_TagClanci_Clanci", "Clanci", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Clanci), "TagClanci", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.TagClanci), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_Korisnici_Drzave", "Drzave", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Drzave), "Korisnici", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Korisnici), true)]
+[assembly: EdmRelationshipAttribute("WikipedModel", "FK_GlasoviZaOdgovore_Korisnici", "Korisnici", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Korisnici), "GlasoviZaOdgovore", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.GlasoviZaOdgovore), true)]
+[assembly: EdmRelationshipAttribute("WikipedModel", "FK_GlasoviZaOdgovore_Odgovori", "Odgovori", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Odgovori), "GlasoviZaOdgovore", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.GlasoviZaOdgovore), true)]
+[assembly: EdmRelationshipAttribute("WikipedModel", "FK_GlasoviZaPitanja_Korisnici", "Korisnici", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Korisnici), "GlasoviZaPitanja", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.GlasoviZaPitanja), true)]
+[assembly: EdmRelationshipAttribute("WikipedModel", "FK_GlasoviZaPitanja_Pitanja", "Pitanja", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Pitanja), "GlasoviZaPitanja", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.GlasoviZaPitanja), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_Sadrzaji_Jezici", "Jezici", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Jezici), "Sadrzaji", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Sadrzaji), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_Komentari_Korisnici", "Korisnici", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Korisnici), "Komentari", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Komentari), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_Korisnici_KorisnikVrste", "KorisnikVrste", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.KorisnikVrste), "Korisnici", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Korisnici), true)]
@@ -136,6 +140,38 @@ namespace Wikiped.DBBL.DAL
             }
         }
         private ObjectSet<Drzave> _Drzave;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<GlasoviZaOdgovore> GlasoviZaOdgovore
+        {
+            get
+            {
+                if ((_GlasoviZaOdgovore == null))
+                {
+                    _GlasoviZaOdgovore = base.CreateObjectSet<GlasoviZaOdgovore>("GlasoviZaOdgovore");
+                }
+                return _GlasoviZaOdgovore;
+            }
+        }
+        private ObjectSet<GlasoviZaOdgovore> _GlasoviZaOdgovore;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<GlasoviZaPitanja> GlasoviZaPitanja
+        {
+            get
+            {
+                if ((_GlasoviZaPitanja == null))
+                {
+                    _GlasoviZaPitanja = base.CreateObjectSet<GlasoviZaPitanja>("GlasoviZaPitanja");
+                }
+                return _GlasoviZaPitanja;
+            }
+        }
+        private ObjectSet<GlasoviZaPitanja> _GlasoviZaPitanja;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -418,6 +454,22 @@ namespace Wikiped.DBBL.DAL
         public void AddToDrzave(Drzave drzave)
         {
             base.AddObject("Drzave", drzave);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the GlasoviZaOdgovore EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToGlasoviZaOdgovore(GlasoviZaOdgovore glasoviZaOdgovore)
+        {
+            base.AddObject("GlasoviZaOdgovore", glasoviZaOdgovore);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the GlasoviZaPitanja EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToGlasoviZaPitanja(GlasoviZaPitanja glasoviZaPitanja)
+        {
+            base.AddObject("GlasoviZaPitanja", glasoviZaPitanja);
         }
     
         /// <summary>
@@ -1183,6 +1235,370 @@ namespace Wikiped.DBBL.DAL
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="WikipedModel", Name="GlasoviZaOdgovore")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class GlasoviZaOdgovore : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new GlasoviZaOdgovore object.
+        /// </summary>
+        /// <param name="glasoviZaOdgovorID">Initial value of the GlasoviZaOdgovorID property.</param>
+        public static GlasoviZaOdgovore CreateGlasoviZaOdgovore(global::System.Int32 glasoviZaOdgovorID)
+        {
+            GlasoviZaOdgovore glasoviZaOdgovore = new GlasoviZaOdgovore();
+            glasoviZaOdgovore.GlasoviZaOdgovorID = glasoviZaOdgovorID;
+            return glasoviZaOdgovore;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 GlasoviZaOdgovorID
+        {
+            get
+            {
+                return _GlasoviZaOdgovorID;
+            }
+            set
+            {
+                if (_GlasoviZaOdgovorID != value)
+                {
+                    OnGlasoviZaOdgovorIDChanging(value);
+                    ReportPropertyChanging("GlasoviZaOdgovorID");
+                    _GlasoviZaOdgovorID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("GlasoviZaOdgovorID");
+                    OnGlasoviZaOdgovorIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _GlasoviZaOdgovorID;
+        partial void OnGlasoviZaOdgovorIDChanging(global::System.Int32 value);
+        partial void OnGlasoviZaOdgovorIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> OdgovorID
+        {
+            get
+            {
+                return _OdgovorID;
+            }
+            set
+            {
+                OnOdgovorIDChanging(value);
+                ReportPropertyChanging("OdgovorID");
+                _OdgovorID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("OdgovorID");
+                OnOdgovorIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _OdgovorID;
+        partial void OnOdgovorIDChanging(Nullable<global::System.Int32> value);
+        partial void OnOdgovorIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> KorisnikID
+        {
+            get
+            {
+                return _KorisnikID;
+            }
+            set
+            {
+                OnKorisnikIDChanging(value);
+                ReportPropertyChanging("KorisnikID");
+                _KorisnikID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("KorisnikID");
+                OnKorisnikIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _KorisnikID;
+        partial void OnKorisnikIDChanging(Nullable<global::System.Int32> value);
+        partial void OnKorisnikIDChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_GlasoviZaOdgovore_Korisnici", "Korisnici")]
+        public Korisnici Korisnici
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Korisnici>("WikipedModel.FK_GlasoviZaOdgovore_Korisnici", "Korisnici").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Korisnici>("WikipedModel.FK_GlasoviZaOdgovore_Korisnici", "Korisnici").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Korisnici> KorisniciReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Korisnici>("WikipedModel.FK_GlasoviZaOdgovore_Korisnici", "Korisnici");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Korisnici>("WikipedModel.FK_GlasoviZaOdgovore_Korisnici", "Korisnici", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_GlasoviZaOdgovore_Odgovori", "Odgovori")]
+        public Odgovori Odgovori
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Odgovori>("WikipedModel.FK_GlasoviZaOdgovore_Odgovori", "Odgovori").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Odgovori>("WikipedModel.FK_GlasoviZaOdgovore_Odgovori", "Odgovori").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Odgovori> OdgovoriReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Odgovori>("WikipedModel.FK_GlasoviZaOdgovore_Odgovori", "Odgovori");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Odgovori>("WikipedModel.FK_GlasoviZaOdgovore_Odgovori", "Odgovori", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="WikipedModel", Name="GlasoviZaPitanja")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class GlasoviZaPitanja : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new GlasoviZaPitanja object.
+        /// </summary>
+        /// <param name="glasoviZaPitanjeID">Initial value of the GlasoviZaPitanjeID property.</param>
+        public static GlasoviZaPitanja CreateGlasoviZaPitanja(global::System.Int32 glasoviZaPitanjeID)
+        {
+            GlasoviZaPitanja glasoviZaPitanja = new GlasoviZaPitanja();
+            glasoviZaPitanja.GlasoviZaPitanjeID = glasoviZaPitanjeID;
+            return glasoviZaPitanja;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 GlasoviZaPitanjeID
+        {
+            get
+            {
+                return _GlasoviZaPitanjeID;
+            }
+            set
+            {
+                if (_GlasoviZaPitanjeID != value)
+                {
+                    OnGlasoviZaPitanjeIDChanging(value);
+                    ReportPropertyChanging("GlasoviZaPitanjeID");
+                    _GlasoviZaPitanjeID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("GlasoviZaPitanjeID");
+                    OnGlasoviZaPitanjeIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _GlasoviZaPitanjeID;
+        partial void OnGlasoviZaPitanjeIDChanging(global::System.Int32 value);
+        partial void OnGlasoviZaPitanjeIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> PitanjeID
+        {
+            get
+            {
+                return _PitanjeID;
+            }
+            set
+            {
+                OnPitanjeIDChanging(value);
+                ReportPropertyChanging("PitanjeID");
+                _PitanjeID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PitanjeID");
+                OnPitanjeIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _PitanjeID;
+        partial void OnPitanjeIDChanging(Nullable<global::System.Int32> value);
+        partial void OnPitanjeIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> KorisnikID
+        {
+            get
+            {
+                return _KorisnikID;
+            }
+            set
+            {
+                OnKorisnikIDChanging(value);
+                ReportPropertyChanging("KorisnikID");
+                _KorisnikID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("KorisnikID");
+                OnKorisnikIDChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _KorisnikID;
+        partial void OnKorisnikIDChanging(Nullable<global::System.Int32> value);
+        partial void OnKorisnikIDChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_GlasoviZaPitanja_Korisnici", "Korisnici")]
+        public Korisnici Korisnici
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Korisnici>("WikipedModel.FK_GlasoviZaPitanja_Korisnici", "Korisnici").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Korisnici>("WikipedModel.FK_GlasoviZaPitanja_Korisnici", "Korisnici").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Korisnici> KorisniciReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Korisnici>("WikipedModel.FK_GlasoviZaPitanja_Korisnici", "Korisnici");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Korisnici>("WikipedModel.FK_GlasoviZaPitanja_Korisnici", "Korisnici", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_GlasoviZaPitanja_Pitanja", "Pitanja")]
+        public Pitanja Pitanja
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Pitanja>("WikipedModel.FK_GlasoviZaPitanja_Pitanja", "Pitanja").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Pitanja>("WikipedModel.FK_GlasoviZaPitanja_Pitanja", "Pitanja").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Pitanja> PitanjaReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Pitanja>("WikipedModel.FK_GlasoviZaPitanja_Pitanja", "Pitanja");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Pitanja>("WikipedModel.FK_GlasoviZaPitanja_Pitanja", "Pitanja", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="WikipedModel", Name="Jezici")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -1889,6 +2305,50 @@ namespace Wikiped.DBBL.DAL
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Drzave>("WikipedModel.FK_Korisnici_Drzave", "Drzave", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_GlasoviZaOdgovore_Korisnici", "GlasoviZaOdgovore")]
+        public EntityCollection<GlasoviZaOdgovore> GlasoviZaOdgovore
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<GlasoviZaOdgovore>("WikipedModel.FK_GlasoviZaOdgovore_Korisnici", "GlasoviZaOdgovore");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<GlasoviZaOdgovore>("WikipedModel.FK_GlasoviZaOdgovore_Korisnici", "GlasoviZaOdgovore", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_GlasoviZaPitanja_Korisnici", "GlasoviZaPitanja")]
+        public EntityCollection<GlasoviZaPitanja> GlasoviZaPitanja
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<GlasoviZaPitanja>("WikipedModel.FK_GlasoviZaPitanja_Korisnici", "GlasoviZaPitanja");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<GlasoviZaPitanja>("WikipedModel.FK_GlasoviZaPitanja_Korisnici", "GlasoviZaPitanja", value);
                 }
             }
         }
@@ -2725,6 +3185,28 @@ namespace Wikiped.DBBL.DAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_GlasoviZaOdgovore_Odgovori", "GlasoviZaOdgovore")]
+        public EntityCollection<GlasoviZaOdgovore> GlasoviZaOdgovore
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<GlasoviZaOdgovore>("WikipedModel.FK_GlasoviZaOdgovore_Odgovori", "GlasoviZaOdgovore");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<GlasoviZaOdgovore>("WikipedModel.FK_GlasoviZaOdgovore_Odgovori", "GlasoviZaOdgovore", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_Odgovori_Korisnici", "Korisnici")]
         public Korisnici Korisnici
         {
@@ -3296,6 +3778,28 @@ namespace Wikiped.DBBL.DAL
         #endregion
     
         #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_GlasoviZaPitanja_Pitanja", "GlasoviZaPitanja")]
+        public EntityCollection<GlasoviZaPitanja> GlasoviZaPitanja
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<GlasoviZaPitanja>("WikipedModel.FK_GlasoviZaPitanja_Pitanja", "GlasoviZaPitanja");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<GlasoviZaPitanja>("WikipedModel.FK_GlasoviZaPitanja_Pitanja", "GlasoviZaPitanja", value);
+                }
+            }
+        }
     
         /// <summary>
         /// No Metadata Documentation available.

@@ -76,6 +76,41 @@ namespace Wikiped.Models
                 odgovori.Add(odgovoriAll);
             }
         }
+        public int OdgovorVoteUp(int odgovorId,int korisnikId)
+        {
+           GlasoviZaOdgovore temp= context.GlasoviZaOdgovore.Where(x => x.OdgovorID == odgovorId && x.KorisnikID == korisnikId).FirstOrDefault();
+           if (temp != null)
+           {
+               temp = new GlasoviZaOdgovore();
+               temp.KorisnikID = korisnikId;
+               temp.OdgovorID = odgovorId;
+               context.GlasoviZaOdgovore.AddObject(temp);
+               DBBL.DAL.Odgovori odg = context.Odgovori.Where(x => x.OdgovorID == odgovorId).FirstOrDefault();
+               odg.BrojGlasova = context.GlasoviZaOdgovore.Where(x => x.OdgovorID == odgovorId).Count();
+               context.SaveChanges();
+               return odg.BrojGlasova.Value;
+           }
+           return -1;
+        }
+        public int OdgovorVoteDown(int odgovorId, int korisnikId)
+        {
+            GlasoviZaOdgovore temp = context.GlasoviZaOdgovore.Where(x => x.OdgovorID == odgovorId && x.KorisnikID == korisnikId).FirstOrDefault();
+            if (temp != null)
+            {
+                temp = new GlasoviZaOdgovore();
+                temp.KorisnikID = korisnikId;
+                temp.OdgovorID = odgovorId;
+                context.GlasoviZaOdgovore.AddObject(temp);
+                DBBL.DAL.Odgovori odg = context.Odgovori.Where(x => x.OdgovorID == odgovorId).FirstOrDefault();
+                odg.BrojGlasova = context.GlasoviZaOdgovore.Where(x => x.OdgovorID == odgovorId).Count();
+                odg.BrojGlasova--;
+                context.SaveChanges();
+                return odg.BrojGlasova.Value;
+            }
+            return -1;
+        }
+
+
         public void Dispose()
         {
             context.Dispose();
