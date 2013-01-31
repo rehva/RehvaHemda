@@ -180,6 +180,16 @@ namespace Wikiped.Models
             return odg.BrojGlasova.Value;
         }
 
+        public void AddCommentOnAnswer(OdgovorNaOdgovor temp)
+        {
+            context.OdgovorNaOdgovor.AddObject(temp);
+            context.SaveChanges();
+        }
+        public void AddAnswer(Odgovori odg)
+        {
+            context.Odgovori.AddObject(odg);
+            context.SaveChanges();
+        }
         public void Dispose()
         {
             context.Dispose();

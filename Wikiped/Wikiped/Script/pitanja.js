@@ -53,14 +53,31 @@
         userVoteDown($(this));
     });
 
-    $(".helpful .btnYes").click(function () {
-        userVoteUp($(this));
+    $(".textComment a").click(function () {
+        $(this).parent().children('.comment').toggle('slow');
     });
-    $(".helpful .btnNo").click(function () {
-        userVoteDown($(this));
+
+    $(".btnComment").click(function () {
+        var id = $(this).parent().children('input').val();
+        var text = $(this).parent().children('.commentText').val();
+
+        $.ajax({
+            url: '/pitanja/AddCommentForAnswer',
+            data: { 'id': id, 'textComm': text },
+            type: "post",
+            cache: false,
+            success: function (data) {
+
+                window.location = window.location;
+            },
+            error: function (xhr, ajaxOptions, thrownError) {
+                console.log(xhr);
+            }
+        });
+
     });
-    $(".textComment").click(function () {
-        $(this).children('.comment').toggle();
-    });
+  
     $(".btnComment").button();
+    $(".mainCommentBtn").button();
+    $(".wmd-input").text('');
 });

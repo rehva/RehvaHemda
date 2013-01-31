@@ -294,6 +294,7 @@ a:visited {
 {
     font-size:14px;
     text-align: justify;
+    margin-left: 59px;
 }
 .clear
 {
@@ -436,8 +437,7 @@ text-align: center;
 }
 .tagDetailMargin
 {
-    margin-left: 60px;
-    margin-top: 15px;
+    margin-top: 20px;
 }
 .helpful
 {
@@ -513,12 +513,41 @@ text-align: center;
     width: 90px;
     font-size: 11px;
     text-align: center;
+    float: right;
+    margin: 10 0px 10px 0;
 }
 .comment .commentText
 {
     display:block;
+    width: 480px;
+    height: 70px;
+    font-size: 13px;
 }
 .textComment
 {
-    
+    float:left;
+    margin-top: 60px;
+}
+.textComment .text
+{
+   font-size: 15px;
+   font-style: italic;
+}
+.textComment .text:hover
+{
+    text-decoration:underline;
+}
+.mainComment
+{
+   margin-left: 61px;
+}
+.mainCommentBtn
+{
+    float: right;
+    margin-top: 10px;
+    font-size: 15px!important;
+}
+.footerResp
+{
+    margin-left: 59px;
 }
