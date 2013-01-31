@@ -448,32 +448,21 @@ text-align: center;
 {
     text-decoration:underline;
 }
-.clanak-wraper-left
+
+.clanak-wraper
 {
-    width:466px;
+    width:464px;
     min-height:300px;
     height:auto;
     overflow:hidden;
     background:#f5fffa;
+    display:list-item;
     float:left;
     border:1px solid #cef2e0;
     border-radius:3px;
     box-shadow: 0 3px 3px #DDD;
     -webkit-box-shadow: 1px 5px 4px gray;
-    
-}
-.clanak-wraper-right
-{
-    width:466px;
-    min-height:300px;
-    height:auto;
-    overflow:hidden;
-    background:#f5fffa;
-    float:right;
-    border:1px solid #cef2e0;
-    border-radius: 3px;
-    box-shadow: 0 3px 3px #DDD;
-    -webkit-box-shadow: 1px 5px 4px gray;
+    margin:0px 0px 7px 3px;
     
 }
 .clanak-naslov

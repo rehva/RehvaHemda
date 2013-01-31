@@ -19,7 +19,7 @@ namespace Wikiped.Models
         public string naslov { get; set; }
         public string opis { get; set; }
         public string tekst { get; set; }
-
+        
 
         public List<ClanciServis> getAllClanci()
         {
@@ -38,6 +38,8 @@ namespace Wikiped.Models
                                 naslov = sa.Naslov,
                                 opis = sa.Opis,
                                 tekst = sa.Tekst
+                           
+
                             }).ToList();
 
                 return tst;
