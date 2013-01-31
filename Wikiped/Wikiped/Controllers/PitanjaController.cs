@@ -31,26 +31,39 @@ namespace Wikiped.Controllers
             
             return View(pitanje);
         }
-        public ActionResult VoteUp(int id, int voteNumber1)
+        public ActionResult VoteUp(int id, bool mainQuestion)
         {
             int korisnikId = 1;
             int voteNumber = default(int);
             using (Pitanja pt = new Pitanja())
             {
-                voteNumber = pt.OdgovorVoteDown(id, korisnikId);
+                if (mainQuestion == true)
+                {
+                    voteNumber = pt.PitanjeVoteUp(id, korisnikId);
+                }
+                else
+                {
+                    voteNumber = pt.OdgovorVoteUp(id, korisnikId);
+                }
             }
             
             return Json(new { voteNumber = voteNumber });
         }
-        public ActionResult VoteDown(int id, int voteNumber1)
+        public ActionResult VoteDown(int id, bool mainQuestion)
         {
             int korisnikId = 1;
             int voteNumber = default(int);
             using (Pitanja pt = new Pitanja())
             {
-                voteNumber=pt.OdgovorVoteDown(id, korisnikId);
+                if (mainQuestion == true)
+                {
+                    voteNumber = pt.PitanjeVoteDown(id, korisnikId);
+                }
+                else
+                {
+                    voteNumber = pt.OdgovorVoteDown(id, korisnikId);
+                }
             }
-
             return Json(new { voteNumber = voteNumber });
         }
 

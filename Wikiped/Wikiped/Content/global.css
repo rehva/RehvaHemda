@@ -508,3 +508,17 @@ text-align: center;
 {
     cursor:pointer;
 }
+.comment .btnComment
+{
+    width: 90px;
+    font-size: 11px;
+    text-align: center;
+}
+.comment .commentText
+{
+    display:block;
+}
+.textComment
+{
+    
+}

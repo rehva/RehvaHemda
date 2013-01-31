@@ -7,8 +7,8 @@
     Layout = "~/Views/Shared/Pocetna.cshtml";
 }
 <div class="votecell">
-    <div class="vote">
-        <input type="hidden" value="14584054">
+    <div class="vote mainQuestion">
+        <input type="hidden" value="@Html.DisplayFor(model => model.PitanjaPost.PitanjeID)">
         <a class="vote-up-off" title="Ovaj odgovor je koristan (kliknite ponovo da poništite)"></a>
         <span class="vote-count-post ">@Html.DisplayFor(model => model.PitanjaPost.BrojGlasova)</span>
         <a class="vote-down-off" title="Ovaj odgovor nije koristan (kliknite ponovo da poništite)"></a>
@@ -30,8 +30,11 @@
    </div>
 
    <div class="footerResp" style="clear: both;margin-left: 60px;">
-        <div class="helpful" style="color: rgb(110, 110, 110);">Je li ovaj post koristan za vas ? &nbsp;&nbsp;<input style="opacity: 0.08645971286271908;" class="anon-vote" type="button" value="Yes"> 
-        &nbsp;<input style="opacity: 0.08645971286271908;" class="anon-vote" type="button" value="No"></div>
+   <div class="helpful mainQuestion">
+        <input type="hidden" value="@Html.DisplayFor(model => model.PitanjaPost.PitanjeID)">
+        <div class="helpful" style="color: rgb(110, 110, 110);">Je li ovaj post koristan za vas ? &nbsp;&nbsp;<input style="opacity: 0.08645971286271908;" class="btnYes" type="button" value="Yes"> 
+        &nbsp;<input style="opacity: 0.08645971286271908;" class="btnNo" type="button" value="No"></div>
+   </div>
        
         <div class="post-signature owner">
         <div class="user-info ">
@@ -59,7 +62,7 @@
     <div class="summary">
          <div class="votecell">
             <div class="vote">
-                <input type="hidden" value="14584054">
+                <input type="hidden" value="@item.OdgovoriGlavni.OdgovorID">
                 <a class="vote-up-off" title="Ovaj odgovor je koristan (kliknite ponovo da poništite)"></a>
                 <span class="vote-count-post ">@item.OdgovoriGlavni.BrojGlasova</span>
                 <a class="vote-down-off" title="Ovaj odgovor nije koristan (kliknite ponovo da poništite)"></a>
@@ -68,9 +71,23 @@
     @item.OdgovoriGlavni.Odgovor
     </div>
     <div class="footerResp">
-        <div class="helpful" style="color: rgb(110, 110, 110);">Je li ovaj post koristan za vas ? &nbsp;&nbsp;<input style="opacity: 0.08645971286271908;" class="anon-vote" type="button" value="Yes"> 
-        &nbsp;<input style="opacity: 0.08645971286271908;" class="anon-vote" type="button" value="No"></div>
+       @* <div class="helpful" style="color: rgb(110, 110, 110);">
+         <input type="hidden" value="@item.OdgovoriGlavni.OdgovorID">
+        Je li ovaj post koristan za vas ? &nbsp;&nbsp;
+        <input style="opacity: 0.08645971286271908;" class="btnYes" type="button" value="Yes"> 
+        &nbsp;
+        <input style="opacity: 0.08645971286271908;" class="btnNo" type="button" value="No">
+        </div>*@
+        <div class="textComment">
+            <a>Komentiraj ovaj clanak</a>
        
+            <div class="comment" style="display:none;">
+                <textarea class="commentText"></textarea>
+                <button type="button" class="btnComment">Komentiraj</button>
+            </div>
+         </div>
+        
+        
         <div class="post-signature owner">
         <div class="user-info ">
             <div class="user-gravatar32">

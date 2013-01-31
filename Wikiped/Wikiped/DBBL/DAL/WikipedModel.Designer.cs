@@ -1330,6 +1330,30 @@ namespace Wikiped.DBBL.DAL
         private Nullable<global::System.Int32> _KorisnikID;
         partial void OnKorisnikIDChanging(Nullable<global::System.Int32> value);
         partial void OnKorisnikIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Glas
+        {
+            get
+            {
+                return _Glas;
+            }
+            set
+            {
+                OnGlasChanging(value);
+                ReportPropertyChanging("Glas");
+                _Glas = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Glas");
+                OnGlasChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Glas;
+        partial void OnGlasChanging(Nullable<global::System.Int32> value);
+        partial void OnGlasChanged();
 
         #endregion
     
@@ -1512,6 +1536,30 @@ namespace Wikiped.DBBL.DAL
         private Nullable<global::System.Int32> _KorisnikID;
         partial void OnKorisnikIDChanging(Nullable<global::System.Int32> value);
         partial void OnKorisnikIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> Glas
+        {
+            get
+            {
+                return _Glas;
+            }
+            set
+            {
+                OnGlasChanging(value);
+                ReportPropertyChanging("Glas");
+                _Glas = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Glas");
+                OnGlasChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _Glas;
+        partial void OnGlasChanging(Nullable<global::System.Int32> value);
+        partial void OnGlasChanged();
 
         #endregion
     

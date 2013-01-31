@@ -140,6 +140,10 @@
     <Content Include="Global.asax" />
     <Content Include="Images\logo.jpg" />
     <Content Include="Images\wikitest.jpg" />
+    <Content Include="README.jQuery.vsdoc.txt" />
+    <Content Include="Scripts\jquery-1.9.0-vsdoc.js" />
+    <Content Include="Scripts\jquery-1.9.0.js" />
+    <Content Include="Scripts\jquery-1.9.0.min.js" />
     <Content Include="Script\jquery-1.8.3.js" />
     <Content Include="Script\jquery-ui-1.9.0.custom.js" />
     <Content Include="Script\pitanja.js" />
@@ -241,6 +245,9 @@
   <ItemGroup>
     <Content Include="Views\Clanci\Edit.cshtml" />
     <Content Include="Views\Clanci\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\jquery-1.9.0.min.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

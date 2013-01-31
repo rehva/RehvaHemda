@@ -76,40 +76,109 @@ namespace Wikiped.Models
                 odgovori.Add(odgovoriAll);
             }
         }
+
         public int OdgovorVoteUp(int odgovorId,int korisnikId)
         {
            GlasoviZaOdgovore temp= context.GlasoviZaOdgovore.Where(x => x.OdgovorID == odgovorId && x.KorisnikID == korisnikId).FirstOrDefault();
-           if (temp != null)
+           if (temp == null)
            {
                temp = new GlasoviZaOdgovore();
                temp.KorisnikID = korisnikId;
                temp.OdgovorID = odgovorId;
+               temp.Glas = 1;
                context.GlasoviZaOdgovore.AddObject(temp);
-               DBBL.DAL.Odgovori odg = context.Odgovori.Where(x => x.OdgovorID == odgovorId).FirstOrDefault();
-               odg.BrojGlasova = context.GlasoviZaOdgovore.Where(x => x.OdgovorID == odgovorId).Count();
                context.SaveChanges();
-               return odg.BrojGlasova.Value;
            }
-           return -1;
+           else
+           {
+               if (temp.Glas < 1)
+               {
+                   temp.Glas++;
+                   context.SaveChanges();
+               }
+           }
+           DBBL.DAL.Odgovori odg = context.Odgovori.Where(x => x.OdgovorID == odgovorId).FirstOrDefault();
+           odg.BrojGlasova = context.GlasoviZaOdgovore.Where(x => x.KorisnikID == korisnikId && x.OdgovorID == odgovorId).Sum(x => x.Glas).Value;
+           context.SaveChanges();
+           return odg.BrojGlasova.Value;
         }
         public int OdgovorVoteDown(int odgovorId, int korisnikId)
         {
             GlasoviZaOdgovore temp = context.GlasoviZaOdgovore.Where(x => x.OdgovorID == odgovorId && x.KorisnikID == korisnikId).FirstOrDefault();
-            if (temp != null)
+            if (temp == null)
             {
                 temp = new GlasoviZaOdgovore();
                 temp.KorisnikID = korisnikId;
                 temp.OdgovorID = odgovorId;
+                temp.Glas = -1;
                 context.GlasoviZaOdgovore.AddObject(temp);
-                DBBL.DAL.Odgovori odg = context.Odgovori.Where(x => x.OdgovorID == odgovorId).FirstOrDefault();
-                odg.BrojGlasova = context.GlasoviZaOdgovore.Where(x => x.OdgovorID == odgovorId).Count();
-                odg.BrojGlasova--;
                 context.SaveChanges();
-                return odg.BrojGlasova.Value;
             }
-            return -1;
+            else
+            {
+                if (temp.Glas >= 0)
+                {
+                    temp.Glas--;
+                    context.SaveChanges();
+                }
+            }
+            DBBL.DAL.Odgovori odg = context.Odgovori.Where(x => x.OdgovorID == odgovorId).FirstOrDefault();
+            odg.BrojGlasova = context.GlasoviZaOdgovore.Where(x => x.KorisnikID == korisnikId && x.OdgovorID == odgovorId).Sum(x => x.Glas).Value;
+            context.SaveChanges();
+            return odg.BrojGlasova.Value;
         }
 
+        public int PitanjeVoteUp(int pitanjeID, int korisnikId)
+        {
+            GlasoviZaPitanja temp = context.GlasoviZaPitanja.Where(x => x.PitanjeID == pitanjeID && x.KorisnikID == korisnikId).FirstOrDefault();
+            if (temp == null)
+            {
+                temp = new GlasoviZaPitanja();
+                temp.KorisnikID = korisnikId;
+                temp.PitanjeID = pitanjeID;
+                temp.Glas = 1;
+                context.GlasoviZaPitanja.AddObject(temp);
+                context.SaveChanges();
+            }
+            else
+            {
+                if (temp.Glas < 1)
+                {
+                    temp.Glas++;
+                    context.SaveChanges();
+                }
+            }
+            DBBL.DAL.Pitanja odg = context.Pitanja.Where(x => x.PitanjeID == pitanjeID).FirstOrDefault();
+            odg.BrojGlasova = context.GlasoviZaPitanja.Where(x => x.KorisnikID == korisnikId && x.PitanjeID == pitanjeID).Sum(x => x.Glas).Value;
+            context.SaveChanges();
+            return odg.BrojGlasova.Value;
+        }
+
+        public int PitanjeVoteDown(int pitanjeID, int korisnikId)
+        {
+            GlasoviZaPitanja temp = context.GlasoviZaPitanja.Where(x => x.PitanjeID == pitanjeID && x.KorisnikID == korisnikId).FirstOrDefault();
+            if (temp == null)
+            {
+                temp = new GlasoviZaPitanja();
+                temp.KorisnikID = korisnikId;
+                temp.PitanjeID = pitanjeID;
+                temp.Glas = -1;
+                context.GlasoviZaPitanja.AddObject(temp);
+                context.SaveChanges();
+            }
+            else
+            {
+                if (temp.Glas >= 0)
+                {
+                    temp.Glas--;
+                    context.SaveChanges();
+                }
+            }
+            DBBL.DAL.Pitanja odg = context.Pitanja.Where(x => x.PitanjeID == pitanjeID).FirstOrDefault();
+            odg.BrojGlasova = context.GlasoviZaPitanja.Where(x => x.KorisnikID == korisnikId && x.PitanjeID == pitanjeID).Sum(x => x.Glas).Value;
+            context.SaveChanges();
+            return odg.BrojGlasova.Value;
+        }
 
         public void Dispose()
         {
