@@ -452,32 +452,59 @@ text-align: center;
 .clanak-wraper
 {
     width:464px;
-    min-height:300px;
+    min-height:200px;
     height:auto;
     overflow:hidden;
-    background:#f5fffa;
+    
     display:list-item;
     float:left;
-    border:1px solid #cef2e0;
+    
     border-radius:3px;
     box-shadow: 0 3px 3px #DDD;
     -webkit-box-shadow: 1px 5px 4px gray;
     margin:0px 0px 7px 3px;
     
 }
+.clanak-wraper.sport
+{
+    background:#f5fffa;
+    border:1px solid #cef2e0;
+}
+.clanak-wraper.biologija
+{
+    background:#f5faff;
+    border:1px solid #cedff2;
+}
+.clanak-wraper.geografija
+{
+    background:#eedcc8;
+    border:1px solid #daaf85;
+}
+
 .clanak-naslov
 {
     float:left;
     width:446px;
-    min-height:25px;
+    min-height:20px;
     height:auto;
     font-size:15px;
     font-weight:bold;
     overflow:hidden;
     margin:10px 5px 5px 5px;
-    padding:0px 5px 0px 5px;
-    background:#cef2e0;
+    padding:0px 5px 7px 5px;
     border-radius: 4px;
+}
+.clanak-naslov.sport
+{
+     background:#cef2e0;
+}
+.clanak-naslov.biologija
+{
+     background:#cedff2;
+}
+.clanak-naslov.geografija
+{
+     background:#daaf85;
 }
 .clanak-slika
 {

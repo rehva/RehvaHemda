@@ -16,12 +16,12 @@ namespace Wikiped.Controllers
 
         public ActionResult Index()
         {
-            ClanciServis c = new ClanciServis();
+            ClanciServisObrada c = new ClanciServisObrada();
             return View(c.getAllClanci());
         }
         public ActionResult Edit(Guid id)
         {
-            ClanciServis c = new ClanciServis();
+            ClanciServisObrada c = new ClanciServisObrada();
             return View(c.getClanakById(id));
         }
 
