@@ -110,6 +110,7 @@ namespace Wikiped.Models
 
                 ClanciServis tst = (from c in s.Context.Clanci
                                     join sa in s.Context.Sadrzaji
+
                                     on c.ClanakID equals sa.ClanakID
                                     where c.Guid == id
                                     select new ClanciServis

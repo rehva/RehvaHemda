@@ -123,6 +123,7 @@
     <Compile Include="Models\ClanciServis.cs" />
     <Compile Include="Models\CustomAuthorizeAttribute.cs" />
     <Compile Include="Models\ExtensionMethod.cs" />
+    <Compile Include="Models\HtmlHelpers.cs" />
     <Compile Include="Models\KorisniciServis.cs" />
     <Compile Include="Models\OdgovoriSaO.cs" />
     <Compile Include="Models\Pitanja.cs" />
@@ -138,7 +139,11 @@
     <Content Include="Content\main.css" />
     <Content Include="Content\normalize.css" />
     <Content Include="Global.asax" />
+    <Content Include="Images\leftOFF.gif" />
+    <Content Include="Images\leftON.gif" />
     <Content Include="Images\logo.jpg" />
+    <Content Include="Images\rightOFF.gif" />
+    <Content Include="Images\rightON.gif" />
     <Content Include="Images\wikitest.jpg" />
     <Content Include="README.jQuery.vsdoc.txt" />
     <Content Include="Script\jquery-1.8.3.js" />
