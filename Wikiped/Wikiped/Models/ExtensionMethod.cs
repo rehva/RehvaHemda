@@ -13,5 +13,6 @@ namespace Wikiped.Models
             int.TryParse(s, out value);
             return value;
         }
+       
     }
 }

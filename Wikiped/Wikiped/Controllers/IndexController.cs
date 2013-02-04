@@ -63,6 +63,7 @@ namespace Wikiped.Controllers
                 if (k != null)
                 {
                     Session.Add("Korisnik", k);
+                    
                     ViewBag.uspjesno = "";
                    return RedirectToAction("Index", "Pocetna");
                 }

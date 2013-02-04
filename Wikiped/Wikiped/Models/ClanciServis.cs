@@ -12,7 +12,7 @@ namespace Wikiped.Models
 
 
 
-        public Guid guid { get; set; }
+        public int ClanakId { get; set; }
         public string slika { get; set; }
         public int popularnost { get; set; }
         public int ocjena { get; set; }
@@ -42,7 +42,7 @@ namespace Wikiped.Models
                                           on c.TagVrstaID equals ts.TagVrstaID
                                           select new ClanciServis
                                           {
-                                              guid = (Guid)c.Guid,
+                                              ClanakId = c.ClanakID,
                                               slika = c.Slika,
                                               popularnost = (int)c.Popularnost,
                                               ocjena = (int)c.Ocjenjeno,
@@ -115,7 +115,7 @@ namespace Wikiped.Models
                                     where c.Guid == id
                                     select new ClanciServis
                                     {
-                                        guid = (Guid)c.Guid,
+                                        ClanakId = c.ClanakID,
                                         slika = c.Slika,
                                         popularnost = (int)c.Popularnost,
                                         ocjena = (int)c.Ocjenjeno,

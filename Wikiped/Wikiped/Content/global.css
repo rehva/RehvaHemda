@@ -578,3 +578,8 @@ text-align: center;
 {
     margin-left: 59px;
 }
+.star
+{
+    float:left;
+    cursor:pointer;
+}

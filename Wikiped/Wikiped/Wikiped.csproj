@@ -109,6 +109,7 @@
   <ItemGroup>
     <Compile Include="Controllers\ClanciController.cs" />
     <Compile Include="Controllers\IndexController.cs" />
+    <Compile Include="Controllers\JsonResponse.cs" />
     <Compile Include="Controllers\PitanjaController.cs" />
     <Compile Include="Controllers\PocetnaController.cs" />
     <Compile Include="DBBL\BLL\Spajanje.cs" />
@@ -124,7 +125,9 @@
     <Compile Include="Models\CustomAuthorizeAttribute.cs" />
     <Compile Include="Models\ExtensionMethod.cs" />
     <Compile Include="Models\HtmlHelpers.cs" />
+    <Compile Include="Models\JsonServis.cs" />
     <Compile Include="Models\KorisniciServis.cs" />
+    <Compile Include="Models\OcjeneServis.cs" />
     <Compile Include="Models\OdgovoriSaO.cs" />
     <Compile Include="Models\Pitanja.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
