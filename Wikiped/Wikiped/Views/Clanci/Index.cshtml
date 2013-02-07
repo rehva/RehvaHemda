@@ -47,7 +47,7 @@
                 text.html("Currently rated " + obj.Result.Rating + " by " + obj.Result.Raters + " people"); //modify the text
                 span.attr("rating", obj.Result.Rating); //set the rating attribute
                 setRating(span, obj.Result.Rating); //update the display
-                alert("Thank you, your vote was casted successfully.");
+                alert("Uspjesno ste glasali za ovaj clanak.");
             }
             else {
                 alert(obj.Message); //failure, show message
@@ -73,11 +73,16 @@
         </div>
         <div class="clanak-text">
             <img src=" @Html.DisplayFor(modelItem => it2.slika)" alt="wikitest" class="clanak-slika" />
-            @Html.DisplayFor(modelItem => it2.tekst)
+            @MvcHtmlString.Create(it2.tekst)
             <div class="clanak-read-more">
-                Procitaj vise...</div>
-                <br />
-                @Html.Ratings(it2.popularnost,it2.ClanakId,it2.ocjena)
+                @Html.ActionLink("Procitaj vise...", "ClanciPregled", new { clID = it2.ClanakId })
+                
+                </div>
+            <div class="Ocjene-Wraper">@Html.Ratings(it2.popularnost,it2.ClanakId,it2.ocjena)<div class="clanak-komentari">Komentari (@it2.komentari)</div></div>
+           
+                
+
+                
                
         </div>
 

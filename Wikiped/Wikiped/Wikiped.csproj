@@ -510,6 +510,9 @@
     <Content Include="Views\Clanci\Edit.cshtml" />
     <Content Include="Views\Clanci\Index.cshtml" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Clanci\ClanciPregled.cshtml" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

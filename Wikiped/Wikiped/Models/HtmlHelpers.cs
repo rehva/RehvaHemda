@@ -29,7 +29,7 @@ namespace Wikiped.Models
                     sb.AppendFormat(formatStr, (i * 2) % 2 == 1 ? "leftOFF.gif" : "rightOFF.gif", brojac);
                 }
             }
-            sb.AppendFormat(" <span>Ocjena :  {0} od strane {1} korisnika</span>", rating, Iduser);
+            sb.AppendFormat(" <span class='ocjene-text'>(od {0} korisnika)</span>", Iduser);
             sb.Append("</span>");
             return MvcHtmlString.Create(sb.ToString());
         }

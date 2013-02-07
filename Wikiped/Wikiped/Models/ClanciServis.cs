@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using Wikiped.DBBL.BLL;
 using Wikiped.DBBL.DAL;
+using System.Web.Mvc;
 
 namespace Wikiped.Models
 {
@@ -14,16 +15,15 @@ namespace Wikiped.Models
 
         public int ClanakId { get; set; }
         public string slika { get; set; }
-        public int popularnost { get; set; }
+        public double popularnost { get; set; }
         public int ocjena { get; set; }
         public int vrsta { get; set; }
         public string naslov { get; set; }
         public string opis { get; set; }
         public string tekst { get; set; }
         public string klasa { get; set; }
-
-
-
+        public int komentari { get; set; }
+       
     }
     public class ClanciServisObrada
     {
@@ -34,6 +34,7 @@ namespace Wikiped.Models
         {
             using (Spajanje s = new Spajanje())
             {
+                
 
                 List<ClanciServis> tst = (from c in s.Context.Clanci
                                           join sa in s.Context.Sadrzaji
@@ -44,15 +45,15 @@ namespace Wikiped.Models
                                           {
                                               ClanakId = c.ClanakID,
                                               slika = c.Slika,
-                                              popularnost = (int)c.Popularnost,
+                                              popularnost = (double)c.Popularnost,
                                               ocjena = (int)c.Ocjenjeno,
                                               naslov = sa.Naslov,
                                               opis = sa.Opis,
                                               tekst = sa.Tekst,
                                               klasa = ts.Opis,
-                                              vrsta = (int)ts.Vrsta
-
-
+                                              vrsta = (int)ts.Vrsta,
+                                              komentari=(from k in s.Context.Komentari where k.ClanakID==c.ClanakID select k).Count()
+                                              
 
                                           }).ToList();
 
@@ -81,6 +82,26 @@ namespace Wikiped.Models
                     }
 
                 }
+                List<Tags> tagovi;
+                //tagovi=(from tc in s.Context.TagClanci join clan in s.Context.Clanci on tc.ClanakID equals clan.ClanakID
+                //join t in s.Context.Tags on tc.TagID equals t.TagID select t).ToList()
+                foreach (ClanciServisObrada repl in finals)
+                {
+                    foreach (ClanciServis cl in repl.ClanciOrig)
+                    {
+                        cl.tekst=cl.tekst.Substring(0, (cl.tekst.Length*20)/100);
+                        cl.tekst = cl.tekst.Substring(0,cl.tekst.LastIndexOf(' '));
+                        cl.tekst += "...";
+                        tagovi = null;
+                        tagovi = (from tc in s.Context.TagClanci join clan in s.Context.Clanci on tc.ClanakID equals clan.ClanakID
+                join t in s.Context.Tags on tc.TagID equals t.TagID where tc.ClanakID==cl.ClanakId select t).ToList();
+                        foreach (Tags tg in tagovi)
+                        {
+                            cl.tekst = MvcHtmlString.Create(cl.tekst.Replace(tg.Ime, "<div class='Clanci-Tag'>" + tg.Ime + "</div>")).ToString();
+                            
+                        }
+                    }
+                }
 
 
 
@@ -102,7 +123,7 @@ namespace Wikiped.Models
             return g.ToString();
 
         }
-        public ClanciServis getClanakById(Guid id)
+        public static ClanciServis getClanakById(int id)
         {
 
             using (Spajanje s = new Spajanje())
@@ -112,7 +133,7 @@ namespace Wikiped.Models
                                     join sa in s.Context.Sadrzaji
 
                                     on c.ClanakID equals sa.ClanakID
-                                    where c.Guid == id
+                                    where c.ClanakID == id
                                     select new ClanciServis
                                     {
                                         ClanakId = c.ClanakID,
@@ -128,5 +149,7 @@ namespace Wikiped.Models
 
             }
         }
+
+       
     }
 }

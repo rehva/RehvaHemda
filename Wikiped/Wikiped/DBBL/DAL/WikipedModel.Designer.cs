@@ -35,13 +35,13 @@ using System.Xml.Serialization;
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_Odgovori_Pitanja", "Pitanja", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Pitanja), "Odgovori", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Odgovori), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_OdgovorNaOdgovor_Odgovori", "Odgovori", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Odgovori), "OdgovorNaOdgovor", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.OdgovorNaOdgovor), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_TagoviPitanja_Pitanja", "Pitanja", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Wikiped.DBBL.DAL.Pitanja), "TagoviPitanja", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.TagoviPitanja), true)]
-[assembly: EdmRelationshipAttribute("WikipedModel", "FK_TagClanci_Tagovi", "Tagovi", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Tagovi), "TagClanci", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.TagClanci), true)]
-[assembly: EdmRelationshipAttribute("WikipedModel", "FK_TagoviPitanja_Tags", "Tags", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Wikiped.DBBL.DAL.Tags), "TagoviPitanja", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.TagoviPitanja), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_Clanci_TagVrste", "TagVrste", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.TagVrste), "Clanci", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Clanci), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_Komentari_Clanci", "Clanci", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Clanci), "Komentari", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Komentari), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_OcjenaKorisnici_Clanci", "Clanci", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Clanci), "OcjenaKorisnici", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.OcjenaKorisnici), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_Sadrzaji_Clanci", "Clanci", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Clanci), "Sadrzaji", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.Sadrzaji), true)]
 [assembly: EdmRelationshipAttribute("WikipedModel", "FK_TagClanci_Clanci", "Clanci", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Clanci), "TagClanci", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.TagClanci), true)]
+[assembly: EdmRelationshipAttribute("WikipedModel", "FK_TagClanci_Tags", "Tags", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Wikiped.DBBL.DAL.Tags), "TagClanci", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.TagClanci), true)]
+[assembly: EdmRelationshipAttribute("WikipedModel", "FK_TagoviPitanja_Tags", "Tags", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Wikiped.DBBL.DAL.Tags), "TagoviPitanja", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Wikiped.DBBL.DAL.TagoviPitanja), true)]
 
 #endregion
 
@@ -320,38 +320,6 @@ namespace Wikiped.DBBL.DAL
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<TagClanci> TagClanci
-        {
-            get
-            {
-                if ((_TagClanci == null))
-                {
-                    _TagClanci = base.CreateObjectSet<TagClanci>("TagClanci");
-                }
-                return _TagClanci;
-            }
-        }
-        private ObjectSet<TagClanci> _TagClanci;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Tagovi> Tagovi
-        {
-            get
-            {
-                if ((_Tagovi == null))
-                {
-                    _Tagovi = base.CreateObjectSet<Tagovi>("Tagovi");
-                }
-                return _Tagovi;
-            }
-        }
-        private ObjectSet<Tagovi> _Tagovi;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<TagoviPitanja> TagoviPitanja
         {
             get
@@ -364,22 +332,6 @@ namespace Wikiped.DBBL.DAL
             }
         }
         private ObjectSet<TagoviPitanja> _TagoviPitanja;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<Tags> Tags
-        {
-            get
-            {
-                if ((_Tags == null))
-                {
-                    _Tags = base.CreateObjectSet<Tags>("Tags");
-                }
-                return _Tags;
-            }
-        }
-        private ObjectSet<Tags> _Tags;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -412,6 +364,38 @@ namespace Wikiped.DBBL.DAL
             }
         }
         private ObjectSet<Clanci> _Clanci;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<TagClanci> TagClanci
+        {
+            get
+            {
+                if ((_TagClanci == null))
+                {
+                    _TagClanci = base.CreateObjectSet<TagClanci>("TagClanci");
+                }
+                return _TagClanci;
+            }
+        }
+        private ObjectSet<TagClanci> _TagClanci;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Tags> Tags
+        {
+            get
+            {
+                if ((_Tags == null))
+                {
+                    _Tags = base.CreateObjectSet<Tags>("Tags");
+                }
+                return _Tags;
+            }
+        }
+        private ObjectSet<Tags> _Tags;
 
         #endregion
 
@@ -530,35 +514,11 @@ namespace Wikiped.DBBL.DAL
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the TagClanci EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToTagClanci(TagClanci tagClanci)
-        {
-            base.AddObject("TagClanci", tagClanci);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Tagovi EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToTagovi(Tagovi tagovi)
-        {
-            base.AddObject("Tagovi", tagovi);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the TagoviPitanja EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToTagoviPitanja(TagoviPitanja tagoviPitanja)
         {
             base.AddObject("TagoviPitanja", tagoviPitanja);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Tags EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToTags(Tags tags)
-        {
-            base.AddObject("Tags", tags);
         }
     
         /// <summary>
@@ -575,6 +535,22 @@ namespace Wikiped.DBBL.DAL
         public void AddToClanci(Clanci clanci)
         {
             base.AddObject("Clanci", clanci);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the TagClanci EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToTagClanci(TagClanci tagClanci)
+        {
+            base.AddObject("TagClanci", tagClanci);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Tags EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToTags(Tags tags)
+        {
+            base.AddObject("Tags", tags);
         }
 
         #endregion
@@ -4309,44 +4285,6 @@ namespace Wikiped.DBBL.DAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_TagClanci_Tagovi", "Tagovi")]
-        public Tagovi Tagovi
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Tagovi>("WikipedModel.FK_TagClanci_Tagovi", "Tagovi").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Tagovi>("WikipedModel.FK_TagClanci_Tagovi", "Tagovi").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Tagovi> TagoviReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Tagovi>("WikipedModel.FK_TagClanci_Tagovi", "Tagovi");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Tagovi>("WikipedModel.FK_TagClanci_Tagovi", "Tagovi", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_TagClanci_Clanci", "Clanci")]
         public Clanci Clanci
         {
@@ -4378,91 +4316,6 @@ namespace Wikiped.DBBL.DAL
                 }
             }
         }
-
-        #endregion
-
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="WikipedModel", Name="Tagovi")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class Tagovi : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new Tagovi object.
-        /// </summary>
-        /// <param name="tagID">Initial value of the TagID property.</param>
-        public static Tagovi CreateTagovi(global::System.Int32 tagID)
-        {
-            Tagovi tagovi = new Tagovi();
-            tagovi.TagID = tagID;
-            return tagovi;
-        }
-
-        #endregion
-
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 TagID
-        {
-            get
-            {
-                return _TagID;
-            }
-            set
-            {
-                if (_TagID != value)
-                {
-                    OnTagIDChanging(value);
-                    ReportPropertyChanging("TagID");
-                    _TagID = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("TagID");
-                    OnTagIDChanged();
-                }
-            }
-        }
-        private global::System.Int32 _TagID;
-        partial void OnTagIDChanging(global::System.Int32 value);
-        partial void OnTagIDChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public global::System.String Opis
-        {
-            get
-            {
-                return _Opis;
-            }
-            set
-            {
-                OnOpisChanging(value);
-                ReportPropertyChanging("Opis");
-                _Opis = StructuralObject.SetValidValue(value, true);
-                ReportPropertyChanged("Opis");
-                OnOpisChanged();
-            }
-        }
-        private global::System.String _Opis;
-        partial void OnOpisChanging(global::System.String value);
-        partial void OnOpisChanged();
-
-        #endregion
-
-    
-        #region Navigation Properties
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -4470,18 +4323,34 @@ namespace Wikiped.DBBL.DAL
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_TagClanci_Tagovi", "TagClanci")]
-        public EntityCollection<TagClanci> TagClanci
+        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_TagClanci_Tags", "Tags")]
+        public Tags Tags
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TagClanci>("WikipedModel.FK_TagClanci_Tagovi", "TagClanci");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Tags>("WikipedModel.FK_TagClanci_Tags", "Tags").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Tags>("WikipedModel.FK_TagClanci_Tags", "Tags").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Tags> TagsReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Tags>("WikipedModel.FK_TagClanci_Tags", "Tags");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TagClanci>("WikipedModel.FK_TagClanci_Tagovi", "TagClanci", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Tags>("WikipedModel.FK_TagClanci_Tags", "Tags", value);
                 }
             }
         }
@@ -4783,6 +4652,28 @@ namespace Wikiped.DBBL.DAL
 
     
         #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("WikipedModel", "FK_TagClanci_Tags", "TagClanci")]
+        public EntityCollection<TagClanci> TagClanci
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TagClanci>("WikipedModel.FK_TagClanci_Tags", "TagClanci");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TagClanci>("WikipedModel.FK_TagClanci_Tags", "TagClanci", value);
+                }
+            }
+        }
     
         /// <summary>
         /// No Metadata Documentation available.

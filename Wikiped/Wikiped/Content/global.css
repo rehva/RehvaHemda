@@ -522,6 +522,8 @@ text-align: center;
     text-align:justify;
     font-size:12px;
     margin:5px;
+    min-height:100%;
+    height:auto;
    
 }
 .clanak-read-more
@@ -582,4 +584,83 @@ text-align: center;
 {
     float:left;
     cursor:pointer;
+}
+.Ocjene-Wraper
+{
+    float:left;
+    height:20px;
+    margin:7px 0px 0px 0px;
+    overflow:hidden;
+    width:100%;
+}
+.star
+{
+    float:left;
+    height:auto;
+    margin:3px 0px 6px 0px;
+    overflow:hidden;
+    width:auto;
+}
+.ocjene-text
+{
+    float:left;
+    height:30px;
+    margin:0px 0px 6px 0px;
+    overflow:hidden;
+    width:auto;
+}
+.clanak-komentari
+{
+    float:right;
+    height:30px;
+    margin:0px 0px 6px 0px;
+    overflow:hidden;
+    width:auto;
+}
+.Clanci-Tag
+{
+    display:inline;
+    font-weight:700;
+   font-style:italic;
+   color:#dc9118;
+}
+.Clanci-Tag:hover
+{
+cursor:pointer;
+text-decoration:underline;
+}
+.clanak-details-head
+{
+    float:left;
+    width:930px;
+    height:120px;
+    background:#cef2e0;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+  overflow:hidden;
+  padding:5px;
+
+}
+.clanak-details-content
+{
+    float:left;
+    width:928px;
+    min-height:120px;
+    height:auto;
+    background:#f5fffa;
+    border:1px solid #cef2e0;
+    border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px;
+  overflow:hidden;
+  padding:5px;
+  text-align:justify;
+
+}
+.clanak-details-opis
+{
+    float:left;
+    width:802px;
+    height:20px;
+    overflow:hidden;
+    background:#cef2e0;
 }

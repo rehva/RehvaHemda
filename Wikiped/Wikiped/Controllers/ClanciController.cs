@@ -19,16 +19,20 @@ namespace Wikiped.Controllers
             ClanciServisObrada c = new ClanciServisObrada();
             return View(c.getAllClanci());
         }
-        public ActionResult Edit(Guid id)
+        public ActionResult Edit(int id)
         {
             ClanciServisObrada c = new ClanciServisObrada();
-            return View(c.getClanakById(id));
+            return View(ClanciServisObrada.getClanakById(id));
         }
-        public bool MogucnostGlasanja(int clanakId)
+        public JsonServis MogucnostGlasanja(int clanakId)
         {
             if (Session["Korisnik"] == null)
             {
-                return false;
+                return (new JsonServis
+                    {
+                        Success = false,
+                        Message = "Morate biti logovani"
+                    });;
             }
             else
             {
@@ -41,7 +45,11 @@ namespace Wikiped.Controllers
 
                     if (glasanje != null)
                     {
-                        return false;
+                        return (new JsonServis
+                        {
+                            Success = false,
+                            Message = "Glasali ste za ovaj clanak"
+                        });
                     }
                                                                   
 
@@ -49,20 +57,27 @@ namespace Wikiped.Controllers
                 }
 
             }
-            return true;
+            return (new JsonServis
+            {
+                Success = true,
+                Message = ""
+            });
+        }
+        public ActionResult ClanciPregled(int clID)
+        {
+            ClanciServis clanak = ClanciServisObrada.getClanakById(clID);
+
+            return View(clanak);
         }
         public JsonResult SetOcjena(int clanakId, double rating)
         {
             try
             {
-                if (MogucnostGlasanja(clanakId) == false)
+                JsonServis jso = MogucnostGlasanja(clanakId);
+                if (jso.Success == false)
                 {
 
-                    return Json(new JsonServis
-                    {
-                        Success = false,
-                        Message = "Sorry, you already voted for this post"
-                    });
+                    return Json(jso);
                 }
                 Korisnici kor = Session["Korisnik"] as Korisnici;
                 using (Spajanje s = new Spajanje())
@@ -95,7 +110,7 @@ namespace Wikiped.Controllers
                 return Json(new JsonServis
                 {
                     Success = true,
-                    Message = "Your Vote was cast successfully",
+                    Message = "Uspjesno ste glasali",
                     Result = new { Rating = (clanakTemp.Popularnost*2), Raters = clanakTemp.Ocjenjeno }
                 });
                 }

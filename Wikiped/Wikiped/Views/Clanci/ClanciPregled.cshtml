@@ -1,0 +1,98 @@
+﻿@model Wikiped.Models.ClanciServis
+
+@{
+    ViewBag.Title = "ClanciPregled";
+    Layout = "~/Views/Shared/Pocetna.cshtml";
+}
+
+<div class="clanak-details-head">
+            <img src="@Html.DisplayFor(model => model.slika)" alt="@Html.DisplayNameFor(model => model.slika)" class="clanak-slika" />
+           <div class="clanak-details-opis">Naslov: @Html.DisplayFor(model => model.naslov)</div>
+           <div class="clanak-details-opis">Kreirano: </div>
+           <div class="clanak-details-opis">Ocjena: </div>
+           <div class="clanak-details-opis">Jezici: </div>
+           <div class="clanak-details-opis">Komentari: </div>
+           <div class="clanak-details-opis">Tagovi: </div>
+            
+</div>
+<div class="clanak-details-content">@Html.DisplayFor(model => model.tekst)</div>
+
+
+
+<fieldset>
+    <legend>ClanciServis</legend>
+    
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ClanakId)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ClanakId)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.slika)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.slika)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.popularnost)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.popularnost)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.ocjena)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.ocjena)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.vrsta)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.vrsta)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.naslov)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.naslov)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.opis)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.opis)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.tekst)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.tekst)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.klasa)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.klasa)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.komentari)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.komentari)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
